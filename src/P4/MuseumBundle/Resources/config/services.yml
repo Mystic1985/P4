@@ -1,0 +1,4 @@
+services:
+#    p4_museum.example:
+#        class: P4\MuseumBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

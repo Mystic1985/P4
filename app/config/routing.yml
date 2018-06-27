@@ -1,3 +1,7 @@
+p4_museum:
+    resource: "@P4MuseumBundle/Resources/config/routing.yml"
+    prefix:   /museum
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation

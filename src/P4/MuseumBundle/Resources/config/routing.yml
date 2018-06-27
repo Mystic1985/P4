@@ -1,0 +1,13 @@
+p4_museum_homepage:
+    path:     /
+    defaults: { _controller: P4MuseumBundle:Ticket:index }
+
+p4_museum_buy:
+    path:     /buy
+    defaults: { _controller: P4MuseumBundle:Ticket:buy }
+
+p4_museum_price:
+    path:    /price
+    defaults: { _controller: P4MuseumBundle:Ticket:price } 
+
+
