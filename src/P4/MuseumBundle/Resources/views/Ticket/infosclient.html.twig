@@ -1,9 +1,9 @@
 {% extends "P4MuseumBundle::layout.html.twig" %}
 
 {% block title %}
-  Réservation - {{ parent() }}
+  Accueil - {{ parent() }}
 {% endblock %}
 
   {% block p4museum_body %}
-  {{ include("P4MuseumBundle:Ticket:form.html.twig") }}
+  {{ include("P4MuseumBundle:Ticket:form_info.html.twig") }}
   {% endblock %}

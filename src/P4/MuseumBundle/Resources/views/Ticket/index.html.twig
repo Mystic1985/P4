@@ -8,8 +8,16 @@
   Accueil - {{ parent() }}
 {% endblock %}
 
-{% block P4museum_body %}
+  {% block p4museum_body %}
+  	<h2>Liste des billets</h2>
 
-  <h2>Liste des billets</h2>
+  	{% for ticket in listTickets %}
+      {{ ticket.price }}
+      {{ ticket.type }}
+        {% if ticket.ticketowner is not null %}
+          {{ ticket.ticketowner.name }}
+        {% endif %}
+  	{% endfor %}
 
-{% endblock %}
+
+  {% endblock %}
