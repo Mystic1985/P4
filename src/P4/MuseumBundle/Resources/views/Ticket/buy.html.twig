@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Bienvenue sur ma première page avec OpenClassrooms !</title>
-  </head>
-  <body>
-    <h1>Hello World !</h1>
+{% extends "P4MuseumBundle::layout.html.twig" %}
 
-    <p>
-      Ici, on pourra acheter des billets.
-    </p>
-  </body>
-</html>
+{% block title %}
+  Acheter un billet - {{ parent() }}
+{% endblock %}
+
+{% block p4museum_body %}
+
+  <h2>Ajouter une annonce</h2>
+
+  {{ include("P4MuseumBundle:Ticket:form.html.twig") }}
+
+{% endblock %}
