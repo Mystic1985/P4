@@ -3,6 +3,8 @@
 namespace P4\MuseumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Orders
@@ -30,8 +32,7 @@ class Orders
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="tickets", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="P4\MuseumBundle\Entity\Ticket", mappedBy="orders", cascade={"persist"})
      */
     private $tickets;
 
@@ -39,9 +40,9 @@ class Orders
      * @var \DateTime
      *
      * @ORM\Column(name="orderdate", type="datetime")
+     * @Assert\DateTime()
      */
     private $orderdate;
-
 
     /**
      * Get id
@@ -130,6 +131,7 @@ class Orders
     public function __construct()
     {
         $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderdate = new \Datetime();
     }
 
     /**

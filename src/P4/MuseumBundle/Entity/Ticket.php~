@@ -50,10 +50,15 @@ class Ticket
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity="P4\MuseumBundle\Entity\Orders")
+     * @ORM\ManyToOne(targetEntity="P4\MuseumBundle\Entity\Orders", inversedBy="tickets", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $orders;
+
+    /**
+     * @ORM\Column(name="reduction", type="boolean")
+     */
+    private $reduction = true;
 
     /**
      * Get id
