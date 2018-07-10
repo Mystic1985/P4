@@ -85,7 +85,7 @@ class TicketController extends Controller
     }
     public function addAction(Request $request)
     {
-    // Création de l'entité Advert
+    // Création de l'entité Ticket
     $ticket = new Ticket();
     $ticket->setPrice('10');
     $ticket->setValiditydate(date('11/10/2018'));
