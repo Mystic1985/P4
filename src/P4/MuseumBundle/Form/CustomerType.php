@@ -20,8 +20,7 @@ class CustomerType extends AbstractType
             ->add('name')
             ->add('firstname')
             ->add('mail', EmailType::class)
-            ->add('adress', AdressType::class)
-            ->add('Enregistrer', SubmitType::class);
+            ->add('adress', AdressType::class);
     }/**
      * {@inheritdoc}
      */
