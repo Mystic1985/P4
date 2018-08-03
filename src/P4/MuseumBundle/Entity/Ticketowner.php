@@ -3,6 +3,7 @@
 namespace P4\MuseumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ticketowner
@@ -48,6 +49,11 @@ class Ticketowner
      * @ORM\Column(name="birthdate", type="date", nullable=true)
      */
     private $birthdate;
+
+    /**
+     * @ORM\Column(name="age", type="integer")
+     */
+    private $age;
 
 
     /**
@@ -154,5 +160,34 @@ class Ticketowner
     public function getBirthdate()
     {
         return $this->birthdate;
+    }
+
+    /**
+     * Set age
+     *
+     * @param integer $age
+     *
+     * @return Ticketowner
+     */
+    public function setAge($age)
+    {
+        $now = new \DateTime(); //Date actuelle
+        $birthdate = $this->getBirthdate(); // Date d'anniversaire reprise dans le formulaire
+
+        $this->age = $age; //Age du visiteur
+
+        $age = $now->diff($birthdate);
+
+        return $this->age;
+    }
+
+    /**
+     * Get age
+     *
+     * @return integer
+     */
+    public function getAge()
+    {
+        return $this->age;
     }
 }

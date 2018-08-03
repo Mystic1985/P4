@@ -3,6 +3,8 @@
 namespace P4\MuseumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Orders
@@ -25,13 +27,14 @@ class Orders
      * @var string
      *
      * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Customer", cascade={"persist"})
+     * @Assert\Valid()
      */ 
     private $customer;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tickets", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Ticket", cascade={"persist"})
      */
     private $tickets;
 
@@ -84,9 +87,9 @@ class Orders
      *
      * @return Orders
      */
-    public function setTickets($tickets)
+    public function setTicket($ticket)
     {
-        $this->tickets = $tickets;
+        $this->ticket = $ticket;
 
         return $this;
     }
@@ -96,9 +99,9 @@ class Orders
      *
      * @return string
      */
-    public function getTickets()
+    public function getTicket()
     {
-        return $this->tickets;
+        return $this->ticket;
     }
 
     /**

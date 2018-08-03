@@ -3,6 +3,8 @@
 namespace P4\MuseumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Adress
@@ -25,6 +27,7 @@ class Adress
      * @var int
      *
      * @ORM\Column(name="streetnumber", type="integer")
+     * @Assert\Range(min=1, minMessage="Numéro de rue invalide.")
      */
     private $streetnumber;
 
@@ -38,7 +41,8 @@ class Adress
     /**
      * @var int
      *
-     * @ORM\Column(name="zipcode", type="integer")
+     * @ORM\Column(name="zipcode", type="string")
+     * @Assert\Length(min=2, max=10, minMessage="Merci de saisir un code postal valide.", maxMessage="Merci de saisir un code postal valide.")
      */
     private $zipcode;
 
@@ -186,4 +190,21 @@ class Adress
     {
         return $this->country;
     }
+    /**
+    * @Assert\Callback
+    */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+    $forbiddenWords = array('démotivation', 'abandon');
+
+    // On vérifie que le contenu ne contient pas l'un des mots
+    if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getCity())) {
+      // La règle est violée, on définit l'erreur
+      $context
+        ->buildViolation('Contenu invalide car il contient un mot interdit.') // message
+        ->atPath('city')                                                   // attribut de l'objet qui est violé
+        ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
+      ;
+    }
+  }
 }
