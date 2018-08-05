@@ -6,6 +6,7 @@ namespace P4\MuseumBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use P4\MuseumBundle\Entity\Ticketowner;
 use P4\MuseumBundle\Entity\Ticket;
 use P4\MuseumBundle\Entity\Customer;
@@ -25,31 +26,40 @@ use P4\MuseumBundle\Form\OrdersType;
 
 class TicketController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $session = $request->getSession();
+        $orderdate = $session->get('orderdate');
 
-    $listTickets = $this->getDoctrine()->getManager()
-      ->getRepository('P4MuseumBundle:Ticket')
-      ->getTickets();
-
+        $em = $this->getDoctrine()->getManager();
+        $orderlist = $em->getRepository('P4MuseumBundle:Orders')->getnumberofTicketsPerDay($session->get('orderdate'));
     return $this->render('P4MuseumBundle:Ticket:index.html.twig', array(
-        'listTickets' => $listTickets,));
+        'orderlist' => $orderlist));
 
     }
 
     public function buyAction(Request $request)
     {
-    // On crée un objet Orders
-    $order = new Orders();
+        $session = new Session();
 
-    // On crée le FormBuilder grâce au service form factory
-    $form = $this->createForm(OrdersType::class, $order);
+        // On crée un objet Orders
+        $order = new Orders();
+        // On crée le FormBuilder grâce au service form factory
+        $form = $this->createForm(OrdersType::class, $order);
 
-    if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($order);
-      $em->flush();
-      return $this->redirectToRoute('p4_museum_info');
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($order);
+          $em->flush(); // Flush des informations
+          //Récupération des variables de la session
+          $orderid = $order->getId();
+          $orderdate = $order->getOrderdate();
+          $session->set('orderdate', $order->getOrderdate());
+          $session->set('orderid', $order->getId());
+          $session->set('customer', $order->getCustomer());
+          $session->set('ticket', $order->getTicket());
+
+            return $this->redirectToRoute('p4_museum_homepage');
     }
 
     // On passe la méthode createView() du formulaire à la vue
@@ -64,60 +74,15 @@ class TicketController extends Controller
     	return $this->render('P4MuseumBundle:Ticket:price.html.twig');
     }
 
-    public function infoAction(Request $request)
+    public function recapAction(Request $request)
     {
-    // On crée un objet Ticketowner
-    $customer = new Customer();
+        $session = $request->getSession(); // Récupération de la session
+        $id = $session->get('orderid');
 
-    // On crée le FormBuilder grâce au service form factory
-    $form = $this->createForm(CustomerType::class, $customer);
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository('P4MuseumBundle:Orders')->find($id); 
 
-    if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($customer);
-      $em->flush();
-      return $this->redirectToRoute('p4_museum_price');
+        return $this->render('P4MuseumBundle:Ticket:recap.html.twig', array('orders' => $order));
     }
-    return $this->render('P4MuseumBundle:Ticket:infosclient.html.twig', array(
-    'form' => $form->createView(),
-    ));
 
-    }
-    public function addAction(Request $request)
-    {
-    // Création de l'entité Ticket
-    $ticket = new Ticket();
-    $ticket->setPrice('10');
-    $ticket->setValiditydate(date('11/10/2018'));
-    $ticket->setType("Demi-journée");
-
-    // Création de l'entité Image
-    $ticketowner = new ticketowner();
-    $ticketowner->setFirstname('Nono');
-    $ticketowner->setName('Bis');
-    $ticketowner->setCountry('France');
-
-    // On lie l'image à l'annonce
-    $ticket->setTicketowner($ticketowner);
-
-    // On récupère l'EntityManager
-    $em = $this->getDoctrine()->getManager();
-
-    // Étape 1 : On « persiste » l'entité
-    $em->persist($ticket);
-
-    // Étape 1 bis : si on n'avait pas défini le cascade={"persist"},
-    // on devrait persister à la main l'entité $image
-    // $em->persist($image);
-
-    // Étape 2 : On déclenche l'enregistrement
-    $em->flush();
-
-    // On passe la méthode createView() du formulaire à la vue
-    // afin qu'elle puisse afficher le formulaire toute seule
-    return $this->render('P4MuseumBundle:Ticket:index.html.twig', array(
-      'ticket' => $ticket,
-      'ticketowner' => $ticketowner,
-    ));
-  }
 }
