@@ -42,10 +42,14 @@ class Orders
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="orderdate", type="datetime")
+     * @ORM\Column(name="orderdate", type="date")
      */
     private $orderdate;
 
+    /**
+     * @ORM\Column(name="numberoftickets", type="integer")
+     */
+    private $numberoftickets;
 
     /**
      * Get id
@@ -158,5 +162,31 @@ class Orders
     public function removeTicket(\P4\MuseumBundle\Entity\Ticket $ticket)
     {
         $this->tickets->removeElement($ticket);
+    }
+
+    
+
+    /**
+     * Set numberoftickets
+     *
+     * @param integer $numberoftickets
+     *
+     * @return Orders
+     */
+    public function setNumberoftickets($numberoftickets)
+    {
+        $this->numberoftickets = $numberoftickets;
+
+        return $this;
+    }
+
+    /**
+     * Get numberoftickets
+     *
+     * @return integer
+     */
+    public function getNumberoftickets()
+    {
+        return $this->numberoftickets;
     }
 }

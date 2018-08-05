@@ -46,15 +46,14 @@ class Ticketowner
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birthdate", type="date", nullable=true)
+     * @ORM\Column(name="birthdate", type="date", nullable=false)
      */
     private $birthdate;
 
     /**
-     * @ORM\Column(name="age", type="integer")
+     * @ORM\Column(name="age", type="integer",nullable=true)
      */
     private $age;
-
 
     /**
      * Get id
@@ -173,10 +172,10 @@ class Ticketowner
     {
         $now = new \DateTime(); //Date actuelle
         $birthdate = $this->getBirthdate(); // Date d'anniversaire reprise dans le formulaire
+        var_dump($birthdate);
+        die;
 
         $this->age = $age; //Age du visiteur
-
-        $age = $now->diff($birthdate);
 
         return $this->age;
     }

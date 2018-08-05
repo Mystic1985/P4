@@ -27,6 +27,7 @@ class Ticket
      * @var int
      *
      * @ORM\Column(name="price", type="integer")
+     * @Assert\Range(min=1)
      */
     private $price;
 
