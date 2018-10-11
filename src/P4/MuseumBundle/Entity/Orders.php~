@@ -35,8 +35,9 @@ class Orders
      * @var string
      *
      * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Ticket", cascade={"persist"})
+     * @Assert\Valid
      */
-    private $tickets;
+    private $ticket;
 
     /**
      * @var \DateTime
@@ -45,6 +46,10 @@ class Orders
      */
     private $orderdate;
 
+    /**
+     * @ORM\Column(name="numberoftickets", type="integer")
+     */
+    private $numberoftickets;
 
     /**
      * Get id
@@ -133,6 +138,7 @@ class Orders
     public function __construct()
     {
         $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderdate = new \DateTime();
     }
 
     /**
@@ -158,4 +164,6 @@ class Orders
     {
         $this->tickets->removeElement($ticket);
     }
+
+    
 }

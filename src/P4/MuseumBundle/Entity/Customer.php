@@ -35,7 +35,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
-     * @Assert\Length(min=2, max=50, minMessage="Merci de rentrer un nom valide", maxMessage="Merci de rentrer un nom valide")
+     * @Assert\Length(min=2, max=50, minMessage="Merci de rentrer un nom valide.", maxMessage="Merci de rentrer un nom valide.")
      */
     private $firstname;
 
@@ -168,11 +168,11 @@ class Customer
     {
     // On vérifie que le contenu est un mail
     if (!preg_match('#^[a-z0-9.-_]+@[a-z0-9.-_]{2,}\.[a-z]{2,4}$#', $this->getMail())) {
-      // La règle est violée, on définit l'erreur
+      // Définition de l'erreur
       $context
-        ->buildViolation('Veuillez renseigner une adresse mail valide.') // message
+        ->buildViolation('Veuillez renseigner une adresse mail valide.') // Message d'erreur
         ->atPath('mail')// attribut de l'objet qui est violé
-        ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
+        ->addViolation() // Déclenchement de l'erreur
       ;
     }
   }

@@ -13,7 +13,7 @@ class TicketRepository extends \Doctrine\ORM\EntityRepository
 	public function getTickets()
   	{
     $qb = $this->createQueryBuilder('t');
-    // On fait une jointure avec l'entité Category avec pour alias « c »
+    // On fait une jointure avec l'entité Category avec pour alias « t »
     $qb
       ->innerJoin('t.ticketowner', 'ti')
       ->addSelect('ti');
@@ -22,4 +22,16 @@ class TicketRepository extends \Doctrine\ORM\EntityRepository
       ->getResult()
       ;
   }
+
+  public function countByValiditydate($validitydate)
+  {
+    $qb = $this->createQueryBuilder('t');
+    $qb
+      ->select('count(t.id)')
+      ->where('t.validitydate = :validitydate')
+      ->setParameter('validitydate', $validitydate);
+
+    return $qb->getQuery()->getSingleScalarResult();
+  }
+
 }

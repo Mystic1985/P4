@@ -53,11 +53,15 @@ class TicketController extends Controller
               array("idempotency_key" => (sha1(random_bytes(20)))));
 
             $mail = $session->get('mail');
-            $message = (new \Swift_Message('Hello Email'))
+            $id = $session->get('orderid');
+              $em = $this->getDoctrine()->getManager();
+              $order = $em->getRepository('P4MuseumBundle:Orders')->find($id); 
+              $message = (new \Swift_Message('Hello Email'))
             ->setFrom('arnaud.griess@orange.fr')
             ->setTo($mail)
             ->setBody(
-                $this->renderView('P4MuseumBundle:Ticket:mail.html.twig'),
+                $this->renderView('P4MuseumBundle:Ticket:mail.html.twig', array('mail' => $mail,
+                                                                                'order' => $order             )),
                 'text/html');
             $this->get('mailer')->send($message);
 
@@ -79,6 +83,9 @@ class TicketController extends Controller
                         break;
                     case 'processing_error':
                         $session->getFlashBag()->add('notice', 'Une erreur est survenue. Merci de vérifier les informations saisies ou modifier votre moyen de paiement.');
+                        break;
+                    default:
+                        $session->getFlashBag()->add('notice', 'Une erreur est survenue.');
                         break;
                     }
             }
@@ -110,15 +117,6 @@ class TicketController extends Controller
           $random = (sha1(random_bytes(20)));
           $session->set('random', $random);
           $session->set('orderid', $order->getId());
-          $session->set('customer', $order->getCustomer());
-          $session->set('firstname', $order->getCustomer()->getFirstname());
-          $session->set('validitydate', $order->getTicket()->getValiditydate());
-          $session->set('price', $order->getTicket()->getPrice());
-          $session->set('ticket', $order->getTicket());
-          $session->set('numberoftickets', $order->getNumberoftickets());
-          $session->set('birthdate', $order->getTicket()->getTicketowner()->getBirthdate());
-          $session->set('mail', $order->getCustomer()->getMail());
-          $mail = $session->get('mail');
 
 
           //Redirection vers le récapitulatif
@@ -135,7 +133,6 @@ class TicketController extends Controller
             $session = $request->getSession();
 
             $random = $session->get('random');
-            $birthdate = $session->get('birthdate'); // Récupération de la session
             $id = $session->get('orderid');
             $em = $this->getDoctrine()->getManager();
             $order = $em->getRepository('P4MuseumBundle:Orders')->find($id); 

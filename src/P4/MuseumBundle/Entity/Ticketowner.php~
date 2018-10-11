@@ -46,15 +46,9 @@ class Ticketowner
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birthdate", type="date", nullable=true)
+     * @ORM\Column(name="birthdate", type="date", nullable=false)
      */
     private $birthdate;
-
-    /**
-     * @ORM\Column(name="age", type="integer")
-     */
-    private $age;
-
 
     /**
      * Get id
@@ -161,4 +155,5 @@ class Ticketowner
     {
         return $this->birthdate;
     }
+
 }

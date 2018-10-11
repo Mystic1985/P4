@@ -10,4 +10,20 @@ p4_museum_price:
     path:    /price
     defaults: { _controller: P4MuseumBundle:Ticket:price } 
 
+p4_museum_add:
+  path:    /add 
+  defaults: { _controller: P4MuseumBundle:Ticket:add}
+
+p4_museum_recap:
+  path:    /recap
+  defaults: { _controller: P4MuseumBundle:Ticket:recap }
+
+p4_museum_checkout:
+  path:    /checkout
+  defaults: { _controller: P4MuseumBundle:Ticket:checkout }
+
+p4_museum_confirm:
+  path:    /confirm
+  defaults: { _controller: P4MuseumBundle:Ticket:confirm }
+  
 

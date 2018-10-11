@@ -5,6 +5,7 @@ namespace P4\MuseumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use P4\MuseumBundle\Validator\Ticketlimit;
 
 /**
  * Orders
@@ -138,6 +139,7 @@ class Orders
     public function __construct()
     {
         $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderdate = new \DateTime();
     }
 
     /**

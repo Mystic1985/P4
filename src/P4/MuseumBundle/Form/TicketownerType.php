@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,7 +21,7 @@ class TicketownerType extends AbstractType
         $builder
             ->add('firstname')
             ->add('name')
-            ->add('country', CountryType::class, array('placeholder' => 'France'))
+            ->add('country', CountryType::class, array('placeholder' => 'Sélectionner un pays'))
             ->add('birthdate', BirthdayType::class, array(
                 'widget' => 'choice',
                 'years' => range(1930, 2018),

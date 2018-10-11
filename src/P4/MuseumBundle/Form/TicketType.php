@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use P4\MuseumBundle\Form\TicketownerType;
 
 class TicketType extends AbstractType
@@ -17,6 +18,7 @@ class TicketType extends AbstractType
     /**
      * {@inheritdoc}
      */
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -28,7 +30,7 @@ class TicketType extends AbstractType
                  'days' => range(date('d'), 31),
                ))
          ->add('type', ChoiceType::class, array('choices' => array('Demi-journée' =>'Demi-journée',
-                                                                   'Journée entière' => 'Journée entière')))
+                                                                   'Journée' => 'Journée')))
          ->add('ticketowner', TicketownerType::class)
          ->add('reduction', CheckboxType::class, array ('required' => false));
     }

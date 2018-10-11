@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -20,13 +22,12 @@ class OrdersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tickets', CollectionType::class, array(
-                'by_reference' => false,
-                'entry_type' => TicketType::class,
-                'allow_add' => true,
-                'allow_delete' => true))
+            ->add('ticket', TicketType::class)
             ->add('customer', CustomerType::class)
-            ->add('save', SubmitType::class);
+            ->add('numberoftickets', IntegerType::class, array('attr' => array(
+                'min' => 1,
+                'max' => 100)))
+            ->add('valider', SubmitType::class);
     }
     /**
      * {@inheritdoc}

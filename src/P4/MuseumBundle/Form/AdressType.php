@@ -4,6 +4,7 @@ namespace P4\MuseumBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,10 +20,11 @@ class AdressType extends AbstractType
         $builder
          ->add('streetnumber', IntegerType::class)
          ->add('streetname', TextareaType::class)
-         ->add('zipcode', IntegerType::class)
+         ->add('zipcode', TextType::class)
          ->add('city', TextareaType::class)
          ->add('country', CountryType::class, array('placeholder' => 'Sélectionner un pays',));
-    }/**
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

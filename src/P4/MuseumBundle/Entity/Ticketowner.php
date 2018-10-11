@@ -51,11 +51,6 @@ class Ticketowner
     private $birthdate;
 
     /**
-     * @ORM\Column(name="age", type="integer",nullable=true)
-     */
-    private $age;
-
-    /**
      * Get id
      *
      * @return int
@@ -161,32 +156,5 @@ class Ticketowner
         return $this->birthdate;
     }
 
-    /**
-     * Set age
-     *
-     * @param integer $age
-     *
-     * @return Ticketowner
-     */
-    public function setAge($age)
-    {
-        $now = new \DateTime(); //Date actuelle
-        $birthdate = $this->getBirthdate(); // Date d'anniversaire reprise dans le formulaire
-        var_dump($birthdate);
-        die;
 
-        $this->age = $age; //Age du visiteur
-
-        return $this->age;
-    }
-
-    /**
-     * Get age
-     *
-     * @return integer
-     */
-    public function getAge()
-    {
-        return $this->age;
-    }
 }

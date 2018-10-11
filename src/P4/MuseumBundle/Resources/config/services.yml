@@ -1,4 +1,8 @@
+# src/OC/PlatformBundle/Resources/config/services.yml
+
 services:
-#    p4_museum.example:
-#        class: P4\MuseumBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    p4_museum.validator.ticketlimit:                              # Le nom du service
+        class: P4\MuseumBundle\Validator\TicketlimitValidator     # La classe du service, ici notre validateur déjà créé
+        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] # Les données qu'on injecte au service : la requête et l'EntityManager
+        tags:
+            - { name: validator.constraint_validator, alias: p4_museum_ticketlimit }  # C'est avec l'alias qu'on retrouvera le service

@@ -5,6 +5,7 @@ namespace P4\MuseumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use P4\MuseumBundle\Validator\Ticketlimit;
 
 /**
  * Ticket
@@ -42,7 +43,7 @@ class Ticket
      * @var \DateTime
      *
      * @ORM\Column(name="validitydate", type="date")
-     * @Assert\Range(min="now", minMessage="La date de visite ne peut pas être antérieure à la date d'aujourd'hui.")
+     * @Ticketlimit()
      */
     private $validitydate;
 
@@ -213,12 +214,16 @@ class Ticket
         return $this->reduction;
     }
 
+    /**
+     * @Assert\Callback
+     */
     public function isValiditydateValid(ExecutionContextInterface $context)
     {
       $today = new \DateTime();
+
       $validitydate = $this->getValiditydate();
 
-      if($today > $validitydate)
+      if ($today > $validitydate)
       {
         $context
         ->buildViolation('La date de visite ne peut pas être antérieure à la date d\'aujourd\'hui.')
@@ -334,6 +339,12 @@ class Ticket
     {
         //Récupération du type de billet
         $type = $this->getType();
+        $validitydate = $this->getValiditydate();
+        $validitydate = $validitydate->format("d/m/Y");
+
+        $today = new \DateTime();
+        $today = $today->format("d/m/Y");
+
         //Création d'un objet DateTime et formatage de la date pour extraire l'heure
         $time = new \DateTime();
         $time = $time->format("H:i:s");
@@ -341,12 +352,14 @@ class Ticket
         $limit = new \DateTime("14:00:00");
         $limit = $limit->format("H:i:s");
 
-        if($limit < $time && $type == "Journée")
-        {
-            $context
-                ->buildViolation('Il n\'est pas possible de réserver un billet de type "Journée" après 14 heures.')
-                ->atPath('type')
-                ->addViolation();                 
+        if($validitydate == $today){
+            if($limit < $time && $type == "Journée")
+            {
+                $context
+                    ->buildViolation('Il n\'est pas possible de réserver un billet de type "Journée" après 14 heures.')
+                    ->atPath('type')
+                    ->addViolation();                 
+            }
         }
     }
 }
