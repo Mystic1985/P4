@@ -1,7 +1,6 @@
 <?php
 
 namespace P4\MuseumBundle\Form;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -22,7 +21,12 @@ class OrdersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ticket', TicketType::class)
+            ->add('tickets', CollectionType::class, array(
+                'entry_type' => TicketType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false
+                ))
             ->add('customer', CustomerType::class)
             ->add('numberoftickets', IntegerType::class, array('attr' => array(
                 'min' => 1,
@@ -38,7 +42,6 @@ class OrdersType extends AbstractType
             'data_class' => 'P4\MuseumBundle\Entity\Orders'
         ));
     }
-
     /**
      * {@inheritdoc}
      */
@@ -46,6 +49,4 @@ class OrdersType extends AbstractType
     {
         return 'p4_museumbundle_orders';
     }
-
-
 }
