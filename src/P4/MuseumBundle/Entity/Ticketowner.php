@@ -156,5 +156,12 @@ class Ticketowner
         return $this->birthdate;
     }
 
+        public function getAge()
+    {
+        $dateInterval = $this->birthdate->diff(new \DateTime());
+ 
+        return $dateInterval->y;
+    }
+
 
 }

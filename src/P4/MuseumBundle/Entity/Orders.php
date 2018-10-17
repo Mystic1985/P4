@@ -1,12 +1,10 @@
 <?php
-
 namespace P4\MuseumBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use P4\MuseumBundle\Validator\Ticketlimit;
-
 /**
  * Orders
  *
@@ -23,7 +21,6 @@ class Orders
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
    /**
      * @var string
      *
@@ -31,27 +28,21 @@ class Orders
      * @Assert\Valid()
      */ 
     private $customer;
-
     /**
-     * @var string
-     *
-     * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Ticket", cascade={"persist"})
-     * @Assert\Valid
+     * @ORM\OneToMany(targetEntity="P4\MuseumBundle\Entity\Ticket", mappedBy="orders", cascade={"persist"})
+     * @Assert\Valid()
      */
-    private $ticket;
-
+    private $tickets;
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="orderdate", type="date")
      */
     private $orderdate;
-
     /**
      * @ORM\Column(name="numberoftickets", type="integer")
      */
     private $numberoftickets;
-
     /**
      * Get id
      *
@@ -61,7 +52,6 @@ class Orders
     {
         return $this->id;
     }
-
     /**
      * Set customer
      *
@@ -72,10 +62,8 @@ class Orders
     public function setCustomer($customer)
     {
         $this->customer = $customer;
-
         return $this;
     }
-
     /**
      * Get customer
      *
@@ -84,30 +72,6 @@ class Orders
     public function getCustomer()
     {
         return $this->customer;
-    }
-
-    /**
-     * Set tickets
-     *
-     * @param string $tickets
-     *
-     * @return Orders
-     */
-    public function setTicket($ticket)
-    {
-        $this->ticket = $ticket;
-
-        return $this;
-    }
-
-    /**
-     * Get tickets
-     *
-     * @return string
-     */
-    public function getTicket()
-    {
-        return $this->ticket;
     }
 
     /**
@@ -120,10 +84,8 @@ class Orders
     public function setOrderdate($orderdate)
     {
         $this->orderdate = $orderdate;
-
         return $this;
     }
-
     /**
      * Get orderdate
      *
@@ -141,7 +103,6 @@ class Orders
         $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orderdate = new \DateTime();
     }
-
     /**
      * Add ticket
      *
@@ -151,11 +112,12 @@ class Orders
      */
     public function addTicket(\P4\MuseumBundle\Entity\Ticket $ticket)
     {
-        $this->tickets[] = $ticket;
+        $this->tickets->add($ticket);
+
+        $ticket->setOrders($this);
 
         return $this;
     }
-
     /**
      * Remove ticket
      *
@@ -165,9 +127,7 @@ class Orders
     {
         $this->tickets->removeElement($ticket);
     }
-
     
-
     /**
      * Set numberoftickets
      *
@@ -178,10 +138,8 @@ class Orders
     public function setNumberoftickets($numberoftickets)
     {
         $this->numberoftickets = $numberoftickets;
-
         return $this;
     }
-
     /**
      * Get numberoftickets
      *
@@ -190,5 +148,15 @@ class Orders
     public function getNumberoftickets()
     {
         return $this->numberoftickets;
+    }
+
+    /**
+     * Get tickets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTickets()
+    {
+        return $this->tickets;
     }
 }
