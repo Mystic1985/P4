@@ -52,8 +52,8 @@ class TicketController extends Controller
               "receipt_email" => $mail),
               array("idempotency_key" => (sha1(random_bytes(20)))));
 
-            $mail = $session->get('mail');
-            $id = $session->get('orderid');
+              $mail = $session->get('mail');
+              $id = $session->get('orderid');
               $em = $this->getDoctrine()->getManager();
               $order = $em->getRepository('P4MuseumBundle:Orders')->find($id); 
               $message = (new \Swift_Message('Hello Email'))
@@ -61,7 +61,7 @@ class TicketController extends Controller
             ->setTo($mail)
             ->setBody(
                 $this->renderView('P4MuseumBundle:Ticket:mail.html.twig', array('mail' => $mail,
-                                                                                'order' => $order             )),
+                                                                                'order' => $order)),
                 'text/html');
             $this->get('mailer')->send($message);
 
@@ -94,6 +94,7 @@ class TicketController extends Controller
             return $this->render('P4MuseumBundle:Ticket:checkout.html.twig');
 
     }
+    
     public function indexAction(Request $request)
     {
     return $this->render('P4MuseumBundle:Ticket:index.html.twig');
@@ -135,9 +136,16 @@ class TicketController extends Controller
             $random = $session->get('random');
             $id = $session->get('orderid');
             $em = $this->getDoctrine()->getManager();
-            $order = $em->getRepository('P4MuseumBundle:Orders')->find($id); 
+            $order = $em->getRepository('P4MuseumBundle:Orders')->find($id);
+            $listtickets = $order->getTickets();
+            foreach($listtickets as $ticket){
+              $age = $ticket->getTicketowner()->getAge();
+            }
 
-            return $this->render('P4MuseumBundle:Ticket:recap.html.twig', array('orders' => $order,
+            return $this->render('P4MuseumBundle:Ticket:recap.html.twig', array(
+                'orders' => $order,
+                'age' => $age,
+                'listtickets' => $listtickets,
                 'random' => $random));
         }
 

@@ -34,4 +34,16 @@ class TicketRepository extends \Doctrine\ORM\EntityRepository
     return $qb->getQuery()->getSingleScalarResult();
   }
 
+  public function getTicketlistByOrder($order)
+  {
+    $qb = $this->createQueryBuilder('t');
+    $qb
+      ->where('t.orders = :order')
+      ->setParameter('order', $order);
+
+    return $qb
+      ->getQuery()
+      ->getResult();
+  }
+
 }

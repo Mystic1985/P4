@@ -21,6 +21,5 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
 			->getQuery()
 			->getResult();
 		return $results;
-
-	}
+	}  
 }

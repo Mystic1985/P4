@@ -16,23 +16,25 @@
   {{ orders.customer.adress.streetname }}<br />
   {{ orders.customer.adress.city }}<br />
   {{ orders.customer.adress.zipcode }}<br />
-  {{ orders.customer.adress.country }}<br />
+  {{ orders.customer.adress.country | country }}<br /><br />
+  <h2>Informations sur les visiteurs</h2>
 
-  Informations sur les billets<br /><br />
-  {{ orders.ticket.price }}<br />
-  {{ orders.ticket.validitydate|date('d/m/Y') }}<br />
-  {{ orders.ticket.type }}<br />
-  {% if orders.ticket.reduction == 1 %}<br />
-  	Réduction accordée
-  {% endif %}
 
-  Informations sur le visiteur
-  {{ orders.ticket.ticketowner.firstname }}<br />
-  {{ orders.ticket.ticketowner.name }}<br />
-  {{ orders.ticket.ticketowner.country }}<br />
-  {{ orders.ticket.ticketowner.birthdate|date('d/m/Y') }}<br />
-  {{ ('now'|date('Y') - orders.ticket.ticketowner.birthdate|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - orders.ticket.ticketowner.birthdate|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }} ans<br /><br />
-
+{% for ticket in listtickets %}
+  Billet numéro {{ loop.index }}<br />
+  Type de billet : <br />
+  {{ ticket.type }}<br />
+  Prénom : <br />
+  {{ ticket.ticketowner.firstname }}<br />
+  Nom : <br />
+  {{ ticket.ticketowner.name }}<br />
+  Date de naissance : <br />
+  {{ ticket.ticketowner.birthdate|date('d/m/Y') }}<br />
+  Age : <br />
+  {{ ticket.ticketowner.getAge() }} ans<br />
+  Pays : <br />
+  {{ ticket.ticketowner.country | country }}
+{% endfor %}<br />
   <a href="{{ path('p4_museum_checkout') }}" class="btn btn-default">
   <i class="glyphicon glyphicon-chevron-right"></i>
     Aller au paiement

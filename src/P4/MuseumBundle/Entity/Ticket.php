@@ -281,6 +281,7 @@ class Ticket
                 mktime(0, 0, 0, $easterMonth, $easterDay + 1,  $easterYear),
                 mktime(0, 0, 0, $easterMonth, $easterDay + 39, $easterYear),
                 mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear));
+        
         foreach($holidays as $holiday) {
             if($validitydatetimestamp == $holiday){
                 if($validitydateday != "Sunday"){
