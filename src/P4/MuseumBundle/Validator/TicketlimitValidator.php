@@ -31,7 +31,7 @@ class TicketlimitValidator extends ConstraintValidator
     						   ->getRepository('P4MuseumBundle:Ticket')
     						   ->countByValiditydate($value);
     				
-    	if($numberofticket > 4){
+    	if($numberofticket > 1000){
 	    	$this->context->addViolation($constraint->message);
 		}
 	}  
