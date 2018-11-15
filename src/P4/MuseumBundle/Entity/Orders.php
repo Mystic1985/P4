@@ -159,4 +159,16 @@ class Orders
     {
         return $this->tickets;
     }
+
+    public function getTotalprice()
+    {
+        $totalprice = 0;
+        $ticketlist = $this->getTickets();
+        foreach ($ticketlist as $ticket) {
+            $totalprice += $ticket->getTicketprice();
+        }
+
+        return $totalprice;
+
+    }
 }

@@ -4,6 +4,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use P4\MuseumBundle\Validator\Ticketlimit;
+use P4\MuseumBundle\Validator\Tuesdayticket;
 /**
  * Ticket
  *
@@ -191,16 +192,46 @@ class Ticket
     {
         return $this->reduction;
     }
+
+    public function getTicketprice()
+    {
+        $age = $this->ticketowner->getAge();
+
+        if($age > 0 && $age < 4){
+            $ticketprice = 0;
+        }
+        else {
+            if($this->reduction == 0){
+                if($age >= 4 && $age < 12)
+                    {
+                        $ticketprice = 8;
+                    }
+                else if($age >= 12 && $age < 60)
+                    {
+                        $ticketprice = 16;
+                    }
+                else if($age >= 60)
+                    {
+                        $ticketprice = 12;
+                    }
+            }
+            else {
+                $ticketprice = 10;
+            }
+        }  
+
+        return $ticketprice;
+    }
     /**
      * @Assert\Callback
      */
     public function isValiditydateValid(ExecutionContextInterface $context)
     {
           $today = new \DateTime();
-          $today = $today->format("m-d-Y");
+          $today = $today->format("Ymd");
 
           $validitydate = $this->getValiditydate();
-          $validitydate = $validitydate->format("m-d-Y");
+          $validitydate = $validitydate->format("Ymd");
 
           if ($validitydate < $today)
           {
@@ -213,7 +244,7 @@ class Ticket
     /**
      * @Assert\Callback
      */
-    public function isValiditydateTuesday(ExecutionContextInterface $context)
+    /*public function isValiditydateTuesday(ExecutionContextInterface $context)
     {
         $validitydate = $this->getValiditydate();
         $validitydate = $validitydate->format("l");
@@ -224,7 +255,8 @@ class Ticket
             ->atPath('validitydate')
             ->addViolation(); 
         }
-    }
+    }*/
+    
     /**
      * @Assert\Callback
      */

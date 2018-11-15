@@ -24,6 +24,8 @@
   Billet numéro {{ loop.index }}<br />
   Type de billet : <br />
   {{ ticket.type }}<br />
+  Prix : <br />
+  {{ ticket.ticketprice }}€<br />
   Prénom : <br />
   {{ ticket.ticketowner.firstname }}<br />
   Nom : <br />
@@ -31,10 +33,11 @@
   Date de naissance : <br />
   {{ ticket.ticketowner.birthdate|date('d/m/Y') }}<br />
   Age : <br />
-  {{ ticket.ticketowner.getAge() }} ans<br />
+  {{ ticket.ticketowner.age }} ans<br />
   Pays : <br />
-  {{ ticket.ticketowner.country | country }}
-{% endfor %}<br />
+  {{ ticket.ticketowner.country | country }}<br />
+{% endfor %}<br /><br />
+<strong>{{ orders.totalprice }}</strong><br /><br />
   <a href="{{ path('p4_museum_checkout') }}" class="btn btn-default">
   <i class="glyphicon glyphicon-chevron-right"></i>
     Aller au paiement

@@ -138,13 +138,10 @@ class TicketController extends Controller
             $em = $this->getDoctrine()->getManager();
             $order = $em->getRepository('P4MuseumBundle:Orders')->find($id);
             $listtickets = $order->getTickets();
-            foreach($listtickets as $ticket){
-              $age = $ticket->getTicketowner()->getAge();
-            }
+            $totalprice = $order->getTotalprice();
 
             return $this->render('P4MuseumBundle:Ticket:recap.html.twig', array(
                 'orders' => $order,
-                'age' => $age,
                 'listtickets' => $listtickets,
                 'random' => $random));
         }
