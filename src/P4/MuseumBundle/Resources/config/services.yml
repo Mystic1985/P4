@@ -11,3 +11,9 @@ services:
         class: P4\MuseumBundle\Twig\CountryExtension
         tags:
             - { name: twig.extension }
+            
+    museum.ticket:
+            class: P4\MuseumBundle\Service\TicketService
+            autowire: false
+            arguments:
+                - '@session'

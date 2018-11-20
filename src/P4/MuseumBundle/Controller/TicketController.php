@@ -4,6 +4,7 @@
 
 namespace P4\MuseumBundle\Controller;
 
+use P4\MuseumBundle\Service\TicketService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -102,7 +103,6 @@ class TicketController extends Controller
 
     public function buyAction(Request $request)
     {
-        $session = new Session();
         // On crée un objet Orders
         $order = new Orders();
         // On crée le FormBuilder grâce au service form factory
@@ -110,15 +110,9 @@ class TicketController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($order);
-          $em->flush(); 
-          // Flush des informations
-          //Récupération des variables de la session
-          $random = (sha1(random_bytes(20)));
-          $session->set('random', $random);
-          $session->set('orderid', $order->getId());
+            $ticketService = new TicketService($request->getSession(), $this->getDoctrine()->getManager());
 
+            $ticketService->createTicket($order);
 
           //Redirection vers le récapitulatif
             return $this->redirectToRoute('p4_museum_recap');
@@ -137,13 +131,14 @@ class TicketController extends Controller
             $id = $session->get('orderid');
             $em = $this->getDoctrine()->getManager();
             $order = $em->getRepository('P4MuseumBundle:Orders')->find($id);
+            $numberoftickets = $em->getRepository('P4MuseumBundle:Ticket')->countByOrder($id);
             $listtickets = $order->getTickets();
             $totalprice = $order->getTotalprice();
 
             return $this->render('P4MuseumBundle:Ticket:recap.html.twig', array(
                 'orders' => $order,
                 'listtickets' => $listtickets,
-                'random' => $random));
+                'numberoftickets' => $numberoftickets));
         }
 
     public function confirmAction(Request $request)
