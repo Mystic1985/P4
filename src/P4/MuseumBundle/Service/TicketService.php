@@ -5,6 +5,7 @@ namespace P4\MuseumBundle\Service;
 use Doctrine\Common\Persistence\ObjectManager;
 use P4\MuseumBundle\Entity\Orders;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use P4\MuseumBundle\Repository\OrdersRepository;
 
 class TicketService
 {
@@ -17,10 +18,14 @@ class TicketService
      */
     private $manager;
 
-    public function __construct(SessionInterface $session, ObjectManager $manager)
+    private $repository;
+
+
+    public function __construct(SessionInterface $session, ObjectManager $manager, OrdersRepository $repository)
     {
         $this->session = $session;
         $this->manager = $manager;
+        $this->repository = $repository;
     }
 
     /**
@@ -36,10 +41,25 @@ class TicketService
         $em->flush();
         // Flush des informations
         //Récupération des variables de la session
-        $random = (sha1(random_bytes(20)));
-        $this->session->set('random', $random);
         $this->session->set('orderid', $order->getId());
 
         return $order;
+    }
+
+    public function removeOrder(Orders $order)
+    {
+        $id = $this->session->get('orderid');
+        if($id != null)
+            {
+               $em = $this->manager;
+               $order = $em->getRepository('P4MuseumBundle:Orders')->find($id);
+               $ordercount = $em->getRepository('P4MuseumBundle:Orders')->countOrdersId($order);
+
+                if($ordercount != null) {
+                    $em->remove($order); // Suppression de la commande
+                    $em->flush();
+                    $this->session->clear(); // Suppression des variables de la session 
+                }
+            }
     }
 }

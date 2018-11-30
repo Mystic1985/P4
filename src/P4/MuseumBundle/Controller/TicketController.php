@@ -108,15 +108,39 @@ class TicketController extends Controller
         // On crée le FormBuilder grâce au service form factory
         $form = $this->createForm(OrdersType::class, $order);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) 
+            {
 
-            $ticketService = new TicketService($request->getSession(), $this->getDoctrine()->getManager());
+                $ticketService = new TicketService($request->getSession(), $this->getDoctrine()->getManager(), $this->getDoctrine()->getManager()->getRepository('P4MuseumBundle:Orders'));
 
-            $ticketService->createTicket($order);
+                $ticketService->createTicket($order);
 
-          //Redirection vers le récapitulatif
-            return $this->redirectToRoute('p4_museum_recap');
-        }
+              //Redirection vers le récapitulatif
+                return $this->redirectToRoute('p4_museum_recap');
+            }
+
+        else
+        {
+                $ticketService = new TicketService($request->getSession(), $this->getDoctrine()->getManager(), $this->getDoctrine()->getManager()->getRepository('P4MuseumBundle:Orders'));
+
+                $ticketService->removeOrder($order);
+            /*$session = $request->getSession();
+
+            $id = $session->get('orderid');
+
+            if($id != null) // Si la commande existe
+            {
+                /*$em = $this->getDoctrine()->getManager();
+                $order = $em->getRepository('P4MuseumBundle:Orders')->find($id);
+                $ordercount = $em->getRepository('P4MuseumBundle:Orders')->countOrdersId($order);*/
+
+
+                /*if($ordercount != null) {
+                    $em->remove($order); // Suppression de la commande
+                    $em->flush();
+                    $session->clear(); // Suppression des variables de la session
+                }*/
+            }
 
         return $this->render('P4MuseumBundle:Ticket:buy.html.twig', array(
           'form' => $form->createView(),
