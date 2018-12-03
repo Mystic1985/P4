@@ -123,7 +123,7 @@ class TicketController extends Controller
         {
                 $ticketService = new TicketService($request->getSession(), $this->getDoctrine()->getManager(), $this->getDoctrine()->getManager()->getRepository('P4MuseumBundle:Orders'));
 
-                $ticketService->removeOrder($order);
+                $ticketService->removeOrders($order);
             /*$session = $request->getSession();
 
             $id = $session->get('orderid');
@@ -165,6 +165,24 @@ class TicketController extends Controller
                 'numberoftickets' => $numberoftickets));
         }
 
+    public function deleteAction(Request $request)
+    {
+        $session = $request->getSession();
+
+        $orderid = $session->get('orderid'); // id de la commande
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository('P4MuseumBundle:Orders')->find($orderid); // récupération de la commande
+        $listtickets = $order->getTickets(); // récupération de la liste des tickets liés à la commande
+        foreach($listtickets as $ticket)
+        {
+            $ticketid = $ticket->getId();
+        }
+            $ticket = $em->getRepository('P4MuseumBundle:Ticket')->find($ticketid);
+            $em->remove($ticket); // Suppression du billet
+            $em->flush();
+
+        return $this->redirectToRoute('p4_museum_recap');
+    }
     public function confirmAction(Request $request)
     {
         $session = $request->getSession();
