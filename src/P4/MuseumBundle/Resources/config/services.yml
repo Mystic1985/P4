@@ -17,3 +17,13 @@ services:
             autowire: false
             arguments:
                 - '@session'
+
+    museum.stripe:
+            class: P4\MuseumBundle\Service\StripeService
+            arguments:
+                - '@session'
+                - '@router'
+                - '@request_stack'
+                - '@mailer'
+                - '@twig'
+                - '@doctrine.orm.entity_manager'

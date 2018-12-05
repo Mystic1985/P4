@@ -2,10 +2,11 @@
 {% extends "P4MuseumBundle::layout.html.twig" %}
 
 {% block title %}
-  Accueil - {{ parent() }}
+  Paiement - {{ parent() }}
 {% endblock %}
 
 {% block p4museum_body %}
+<div class="well">
 	<script src="https://js.stripe.com/v3/"></script>
 	<div class="row">
 	{% for label, messages in app.flashes(['notice', 'error']) %}
@@ -32,6 +33,7 @@
 			</form>
 		</div>
 	</div>
+</div>
 
 
 </form>
