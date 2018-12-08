@@ -20,31 +20,26 @@
     <div id="header" class="jumbotron">
       <h1 class="text-center">Musée du louvre</h1>
       <p class="text-center">
-          Plateforme de réservation de billets
+          {{ 'museum.subtitle'|trans}}
       </p>
       <div class="row">
       <p>
-        <div class="col-md-offset-3 col-md-3">
-        <a class="btn btn-primary btn-md" href="{{ path('p4_museum_buy') }}">
-          Acheter des billets
+        <div class="text-center">
+        <a class="btn btn-primary" href="{{ path('p4_museum_buy') }}">
+          {{ 'Acheter des billets'|trans }}
+        </a><br /><br />
+      </div>
+        <div class="text-center">
+        <a class="btn btn-primary" href="{{ path('p4_museum_homepage') }}">
+          {{ 'Accueil'|trans }}
         </a>
       </div>
-        <a class="btn btn-primary btn-md" href="{{ path('p4_museum_buy') }}">
-          Acheter des billets
-        </a>
       </p>
     </div>
     </div>
 
     <div class="row">
-      <div id="menu" class="col-md-3">
-        <h3>Les annonces</h3>
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ path('p4_museum_homepage') }}">Accueil</a></li>
-        </ul>
-      </div>
-
-      <div id="content" class="col-md-9">
+      <div id="content" class="col-md-12 text-center">
         {% block body %}
         {% endblock %}
       </div>

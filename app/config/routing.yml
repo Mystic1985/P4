@@ -1,6 +1,8 @@
 p4_museum:
     resource: "@P4MuseumBundle/Resources/config/routing.yml"
-    prefix:   /museum
+    prefix:   /{_locale}/museum
+    requirements:
+        _locale: en|fr
 
 app:
     resource: '@AppBundle/Controller/'

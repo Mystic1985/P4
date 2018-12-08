@@ -1,0 +1,22 @@
+'Acheter des billets': 'Buy tickets'
+Annuler: Cancel
+Accueil: Home
+Nom: Name
+Prénom: Firstname
+'Numéro de rue': Street number
+'Nom de rue': Street name
+'Code postal': Zip code
+'Ville': City
+'Pays': Country
+'Sélectionner un pays': 'Select country'
+'Informations sur les billets': 'Tickets informations'
+'Demi-journée': 'Half day'
+'Journée' : 'Full day'
+'Informations sur les billets': 'Tickets informations'
+'Ajouter un billet' : 'Add ticket'
+Supprimer: Delete
+Valider: Submit
+museum:
+  subtitle: 'Booking platform'
+  form: 'Booking form'
+

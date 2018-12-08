@@ -1,9 +1,12 @@
 {% extends "P4MuseumBundle::layout.html.twig" %}
 
 {% block title %}
-  Acheter un billet - {{ parent() }}
+  Acheter des billets - {{ parent() }}
 {% endblock %}
 
+{% block subtitle %}
+	<h1>{{ 'museum.form'|trans }}</h1>
+{% endblock %}
 {% block p4museum_body %}
 
   {{ include("P4MuseumBundle:Ticket:form.html.twig") }}

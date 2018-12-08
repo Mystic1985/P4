@@ -24,8 +24,7 @@ require('../css/app.scss');
         addDeleteLink($(this));
       });
     }
-
-    // La fonction qui ajoute un formulaire CategoryType
+    //Ajout d'un formulaire TicketType
     function addTicket($container) {
       // Dans le contenu de l'attribut « data-prototype », on remplace :
       // - le texte "__name__label__" qu'il contient par le label du champ
@@ -37,6 +36,34 @@ require('../css/app.scss');
 
       // On crée un objet jquery qui contient ce template
       var $prototype = $(template);
+
+        $('#p4_museumbundle_orders_customer_name').focus();
+        $(function() {
+          var lefocus;  
+          $('input, textarea').focus( function() { 
+            lefocus = '#' + $(this).attr('id');        
+            $(lefocus).css('background-color', 'grey');
+          }); 
+          $('input, textarea').blur( function() { 
+            leFocus = '#' + $(this).attr('id');        
+            $(leFocus).css('background-color', '#fff');
+          }); 
+        });
+
+        $(function() {
+              var test =  $('<strong>Un justificatif vous sera demandé lors de votre arrivée</strong><br>').insertBefore($("#p4_museumbundle_orders_tickets_0_reduction"));
+              test.hide();
+            $("#p4_museumbundle_orders_tickets_0_reduction").click(function() {
+            if($("#p4_museumbundle_orders_tickets_0_reduction").is(':checked')){
+              test.show();
+          }
+          else{
+            test.hide();
+          }
+
+          });
+        });
+
 
       // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
       addDeleteLink($prototype);
@@ -50,8 +77,18 @@ require('../css/app.scss');
 
     // La fonction qui ajoute un lien de suppression d'une catégorie
     function addDeleteLink($prototype) {
+
+      var enUrl = /en\/museum\/buy$/
+      var urlComplet = document.location.href;
+      if(enUrl.test(urlComplet))
+      {
       // Création du lien
-      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+        var $deleteLink = $('<a href="#" class="btn btn-danger">Delete</a>');
+      }
+      else
+      {
+        var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+      }
 
       // Ajout du lien
       $prototype.append($deleteLink);

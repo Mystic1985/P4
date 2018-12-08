@@ -25,5 +25,9 @@ p4_museum_checkout:
 p4_museum_confirm:
   path:    /confirm
   defaults: { _controller: P4MuseumBundle:Ticket:confirm }
+
+p4_museum_delete:
+  path:    /delete
+  defaults: {_controller: P4MuseumBundle:Ticket:delete}
   
 

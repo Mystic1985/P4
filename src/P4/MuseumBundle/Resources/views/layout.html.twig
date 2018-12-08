@@ -9,9 +9,14 @@
 {% block body %}
 
   {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
-  <h1>Réservation</h1>
-
+ <div class="col-md-12 text-center">
+  {% block subtitle %}
+  {% endblock %}
   <hr>
+  <div class="col-sm-12 text-center">
+	<img src="{{ asset('images/louvre.jpg')}}" class="img-fluid" alt="Responsive image" /><br /><br />
+</div>
+</div>
 
   {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
   {% block p4museum_body %}
