@@ -27,3 +27,4 @@ services:
                 - '@mailer'
                 - '@twig'
                 - '@doctrine.orm.entity_manager'
+                - '@translator'
