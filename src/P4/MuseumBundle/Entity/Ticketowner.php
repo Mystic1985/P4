@@ -26,6 +26,7 @@ class Ticketowner
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
+     * @Assert\Length(min=2, max=50, minMessage="Merci de rentrer un prénom valide", maxMessage="Merci de rentrer un prénom valide")
      */
     private $firstname;
 
@@ -33,6 +34,7 @@ class Ticketowner
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\Length(min=2, max=50, minMessage="Merci de rentrer un nom valide", maxMessage="Merci de rentrer un nom valide")
      */
     private $name;
 

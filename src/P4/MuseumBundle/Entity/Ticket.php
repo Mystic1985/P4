@@ -22,16 +22,9 @@ class Ticket
      */
     private $id;
     /**
-     * @var int
-     *
-     * @ORM\Column(name="price", type="integer")
-     * @Assert\Range(min=1)
-     */
-    private $price;
-    /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Ticketowner", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Ticketowner", cascade={"persist", "remove"})
      */     
     private $ticketowner;
     /**
@@ -65,27 +58,6 @@ class Ticket
     public function getId()
     {
         return $this->id;
-    }
-    /**
-     * Set price
-     *
-     * @param integer $price
-     *
-     * @return Ticket
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-        return $this;
-    }
-    /**
-     * Get price
-     *
-     * @return int
-     */
-    public function getPrice()
-    {
-        return $this->price;
     }
     /**
      * Set ticketowner
@@ -196,8 +168,8 @@ class Ticket
     public function getTicketprice()
     {
         $age = $this->ticketowner->getAge();
-
-        if($age > 0 && $age < 4){
+        
+        if($age >= 0 && $age < 4){
             $ticketprice = 0;
         }
         else {
@@ -241,10 +213,37 @@ class Ticket
             ->addViolation();
         }
     }
+        /**
+     * @Assert\Callback
+     */
+    public function isTypeValid(ExecutionContextInterface $context)
+    {
+        //Récupération du type de billet
+        $type = $this->getType();
+        $validitydate = $this->getValiditydate();
+        $validitydate = $validitydate->format("d/m/Y");
+        $today = new \DateTime();
+        $today = $today->format("d/m/Y");
+        //Création d'un objet DateTime et formatage de la date pour extraire l'heure
+        $time = new \DateTime();
+        $time = $time->format("H:i:s");
+        //Définition de l'heure limite
+        $limit = new \DateTime("14:00:00");
+        $limit = $limit->format("H:i:s");
+        if($validitydate == $today){
+            if($limit < $time && $type == "Journée")
+            {
+                $context
+                    ->buildViolation('Il n\'est pas possible de réserver un billet de type "Journée" après 14 heures.')
+                    ->atPath('type')
+                    ->addViolation();                 
+            }
+        }
+    }
     /**
      * @Assert\Callback
      */
-    /*public function isValiditydateTuesday(ExecutionContextInterface $context)
+    public function isValiditydateTuesday(ExecutionContextInterface $context)
     {
         $validitydate = $this->getValiditydate();
         $validitydate = $validitydate->format("l");
@@ -255,7 +254,7 @@ class Ticket
             ->atPath('validitydate')
             ->addViolation(); 
         }
-    }*/
+    }
     
     /**
      * @Assert\Callback
@@ -331,31 +330,5 @@ class Ticket
             }
         }
     }
-    /**
-     * @Assert\Callback
-     */
-    public function isTypeValid(ExecutionContextInterface $context)
-    {
-        //Récupération du type de billet
-        $type = $this->getType();
-        $validitydate = $this->getValiditydate();
-        $validitydate = $validitydate->format("d/m/Y");
-        $today = new \DateTime();
-        $today = $today->format("d/m/Y");
-        //Création d'un objet DateTime et formatage de la date pour extraire l'heure
-        $time = new \DateTime();
-        $time = $time->format("H:i:s");
-        //Définition de l'heure limite
-        $limit = new \DateTime("14:00:00");
-        $limit = $limit->format("H:i:s");
-        if($validitydate == $today){
-            if($limit < $time && $type == "Journée")
-            {
-                $context
-                    ->buildViolation('Il n\'est pas possible de réserver un billet de type "Journée" après 14 heures.')
-                    ->atPath('type')
-                    ->addViolation();                 
-            }
-        }
-    }
+
 }
