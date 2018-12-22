@@ -22,4 +22,15 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
 			->getResult();
 		return $results;
 	}  
+
+	public function countOrdersId($order)
+  	{
+    $qb = $this->createQueryBuilder('o');
+    $qb
+      ->select('count(o.id)')
+      ->where('o.id = :order')
+      ->setParameter('order', $order);
+
+    return $qb->getQuery()->getSingleScalarResult();
+  }
 }
