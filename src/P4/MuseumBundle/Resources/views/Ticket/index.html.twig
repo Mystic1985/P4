@@ -10,8 +10,35 @@
 
 {% block p4museum_body %}
 
-  <h2>{{ 'Liste des billets'|trans }}</h2>
+  <h3>Bienvenue sur la plateforme de réservation en ligne du Musée du Louvre !</h3>
 
-  <button>{{ 'Annuler'|trans }}</button>
+  Nos tarifs :
+
+  <table class="table-bordered">
+  <thead>
+    <tr>
+      <th>Type de billet</th>
+      <th>Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<tr>
+  		<td>Normal(à partir de 12 ans)</td>
+  		<td>16€</td>
+  	</tr>
+  	<tr>
+  		<td>Enfant(De 8 à 12 ans)</td>
+  		<td>8€</td>
+  	</tr>
+  	<tr>
+  		<td>Sénior(à partir de 60 ans)</td>
+  		<td>12€</td>
+  	</tr>
+  	<tr>
+  		<td>Réduit(<span id="asterisque">*</span>)</td>
+  		<td>10€</td>
+  	</tr>
+  </tbody>
+</table>
 
 {% endblock %}

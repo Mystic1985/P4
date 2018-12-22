@@ -3,11 +3,13 @@
 {% block title %}
   Acheter un billet - {{ parent() }}
 {% endblock %}
+{% block subtitle %}
+  <h1>Récapitulatif de votre commande</h1>
+{% endblock %}
 
 {% block p4museum_body %}
+  <div class="well">
   
-  Nombre de billets : {{ orders.numberoftickets }}<br />
-
   Vos coordonnées
   {{ orders.customer.firstname }}<br />
   {{ orders.customer.name }}<br />
@@ -19,27 +21,50 @@
   {{ orders.customer.adress.country | country }}<br /><br />
   <h2>Informations sur les visiteurs</h2>
 
-
+<div class="table-responsive">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Billet n°</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Date de naissance</th>
+      <th>Pays</th>
+      <th>Type de billet</th>
+      <th>Tarif réduit</th>
+      <th>Prix</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
 {% for ticket in listtickets %}
-  Billet numéro {{ loop.index }}<br />
-  Type de billet : <br />
-  {{ ticket.type }}<br />
-  Prix : <br />
-  {{ ticket.ticketprice }}€<br />
-  Prénom : <br />
-  {{ ticket.ticketowner.firstname }}<br />
-  Nom : <br />
-  {{ ticket.ticketowner.name }}<br />
-  Date de naissance : <br />
-  {{ ticket.ticketowner.birthdate|date('d/m/Y') }}<br />
-  Age : <br />
-  {{ ticket.ticketowner.age }} ans<br />
-  Pays : <br />
-  {{ ticket.ticketowner.country | country }}<br />
-{% endfor %}<br /><br />
+  <tr>
+   <td data-label="Billet n°">{{ loop.index }}</td>
+   <td data-label="Nom">{{ ticket.ticketowner.name }}</td>
+   <td data-label="Prénom">{{ ticket.ticketowner.firstname }}</td>
+   <td data-label="Date de naissance">{{ ticket.ticketowner.birthdate|date('d/m/Y') }}</td>
+   <td data-label="Pays">{{ ticket.ticketowner.country | country }}</td>
+   <td data-label="Type de billet">{{ ticket.type }}<br /></td>
+   {% if ticket.reduction == 1 %}
+      <td data-label="Tarif réduit">Oui</td>
+    {% else %}
+      <td data-label="Tarif réduit">Non</td>
+   {% endif %}
+   <td data-label="Prix">{{ ticket.ticketprice }}€</td>
+   <td>  <a href="{{ path('p4_museum_delete') }}" class="btn btn-default btn-xs" title="Supprimer le billet"><i class="glyphicon glyphicon-remove"></i></a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
 <strong>{{ orders.totalprice }}</strong><br /><br />
-  <a href="{{ path('p4_museum_checkout') }}" class="btn btn-default">
-  <i class="glyphicon glyphicon-chevron-right"></i>
-    Aller au paiement
+  <a href="{{ path('p4_museum_buy') }}" class="btn btn-default">
+  <i class="glyphicon glyphicon-chevron-left"></i>
+    Annuler
   </a>
+  <a href="{{ path('p4_museum_checkout') }}" class="btn btn-default">
+  <i class="glyphicon glyphicon-euro"></i>
+    Payer
+  </a>
+</div>
 {% endblock %}
