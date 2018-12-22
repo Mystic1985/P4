@@ -24,12 +24,12 @@ class Orders
    /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Customer", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Customer", cascade={"persist", "remove"})
      * @Assert\Valid()
      */ 
     private $customer;
     /**
-     * @ORM\OneToMany(targetEntity="P4\MuseumBundle\Entity\Ticket", mappedBy="orders", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="P4\MuseumBundle\Entity\Ticket", mappedBy="orders", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
     private $tickets;
@@ -40,9 +40,13 @@ class Orders
      */
     private $orderdate;
     /**
-     * @ORM\Column(name="numberoftickets", type="integer")
+     * @ORM\Column(name="code", type="string")
      */
-    private $numberoftickets;
+    private $code;
+    /**
+     * @ORM\Column(name="paymentstatus", type="boolean", nullable=true)
+     */
+    private $paymentstatus;
     /**
      * Get id
      *
@@ -102,6 +106,7 @@ class Orders
     {
         $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orderdate = new \DateTime();
+        $this->code = sha1(random_bytes(20));
     }
     /**
      * Add ticket
@@ -127,29 +132,6 @@ class Orders
     {
         $this->tickets->removeElement($ticket);
     }
-    
-    /**
-     * Set numberoftickets
-     *
-     * @param integer $numberoftickets
-     *
-     * @return Orders
-     */
-    public function setNumberoftickets($numberoftickets)
-    {
-        $this->numberoftickets = $numberoftickets;
-        return $this;
-    }
-    /**
-     * Get numberoftickets
-     *
-     * @return integer
-     */
-    public function getNumberoftickets()
-    {
-        return $this->numberoftickets;
-    }
-
     /**
      * Get tickets
      *
@@ -170,5 +152,53 @@ class Orders
 
         return $totalprice;
 
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     *
+     * @return Orders
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set paymentstatus
+     *
+     * @param boolean $paymentstatus
+     *
+     * @return Orders
+     */
+    public function setPaymentstatus($paymentstatus)
+    {
+        $this->paymentstatus = $paymentstatus;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentstatus
+     *
+     * @return boolean
+     */
+    public function getPaymentstatus()
+    {
+        return $this->paymentstatus;
     }
 }
