@@ -46,4 +46,15 @@ class TicketRepository extends \Doctrine\ORM\EntityRepository
       ->getResult();
   }
 
+  public function countByOrder($order)
+  {
+    $qb = $this->createQueryBuilder('t');
+    $qb
+      ->select('count(t.id)')
+      ->where('t.orders = :orders')
+      ->setParameter('orders', $order);
+
+  return $qb->getQuery()->getSingleScalarResult();
+  }
+
 }
