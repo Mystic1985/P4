@@ -87,7 +87,7 @@ class StripeService
 		            $em->flush();
 		             //Rédirection vers la page de confirmation
 		             return new RedirectResponse($this->router->generate('p4_museum_confirm'));
-		             $session->clear(); // Suppression de la session
+		             $this->session->clear(); // Suppression de la session
 	         	}
 
 	         	// Gestion des erreurs
@@ -116,7 +116,7 @@ class StripeService
           }
 
           else {
-          	$this->session->getFlashBag()->add('notice', 'Le paiement pour cette commande a déjà été effectué.');
+          	$this->session->getFlashBag()->add('notice', $this->translator->trans('Le paiement pour cette commande a déjà été effectué.'));
           }
 
             // Si des erreurs sont détectées, redirection vers la page "checkout" et affichage d'un message d'erreur
