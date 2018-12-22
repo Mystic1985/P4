@@ -28,9 +28,6 @@ class OrdersType extends AbstractType
                 'by_reference' => false
                 ))
             ->add('customer', CustomerType::class)
-            ->add('numberoftickets', IntegerType::class, array('attr' => array(
-                'min' => 1,
-                'max' => 100)))
             ->add('valider', SubmitType::class);
     }
     /**

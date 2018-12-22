@@ -1,22 +1,39 @@
 'Acheter des billets': 'Buy tickets'
 Annuler: Cancel
 Accueil: Home
-Nom: Name
 Prénom: Firstname
-'Numéro de rue': Street number
-'Nom de rue': Street name
-'Code postal': Zip code
-'Ville': City
-'Pays': Country
+Nom: Name
+'Nom de rue': 'Street name'
+'Code postal': 'Zip code'
+Ville: City
+Pays: Country
 'Sélectionner un pays': 'Select country'
 'Informations sur les billets': 'Tickets informations'
-'Demi-journée': 'Half day'
-'Journée' : 'Full day'
-'Informations sur les billets': 'Tickets informations'
-'Ajouter un billet' : 'Add ticket'
-Supprimer: Delete
+Demi-journée: 'Half day'
+Journée: 'Full day'
+'Ajouter un billet': 'Add ticket'
 Valider: Submit
-museum:
-  subtitle: 'Booking platform'
-  form: 'Booking form'
-
+'Récapitulatif de votre commande': Summary
+museum.subtitle: 'Booking platform'
+museum.form: 'Booking form'
+'Vos coordonnées': 'Contact informations'
+'Ajouter un ticket': 'Add ticket'
+'Date de validité': Validitydate
+'Le code de sécurité de la carte est invalide': 'Invalid code'
+error.payment.declined: 'Payment declined. Please check the amount available on your bank account.'
+error.payment.incorrect_cvc: 'Invalid security code.'
+error.payment.expired_card: 'The validitydate of your card has expired.'
+error.payment.processing_error: 'An error has occured. Please check your credit card informations.'
+error.payment.default: 'An error has occured'
+error.payment.done: 'The payment for this order has already been done.'
+customer.info.name: 'Enter your name (2 to 50 characters)'
+customer.info.firstname: 'Enter your firstname (2 to 50 characters)'
+customer.info.mail: 'Enter your e-mail address'
+Visiteur: Ticketowner
+ticket.validitydate: Validitydate
+ticket.type: Type
+ticketowner.name: Name
+ticketowner.firstname: Firstname
+ticketowner.birthdate: Birthdate
+ticketowner.country: Country
+'Numéro de rue': 'Street number'

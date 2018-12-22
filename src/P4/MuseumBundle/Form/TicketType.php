@@ -22,17 +22,25 @@ class TicketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-         ->add('price', IntegerType::class)
          ->add('validitydate', DateType::class, array(
+                 'attr' => array('min' => (new \DateTime())->format('Y-m-d')),
+                 'label' => 'ticket.validitydate',
                  'widget' => 'single_text',
                  'years' => range(date('Y'), date('Y')+1),
                  'months' => range(date('m'), 12),
                  'days' => range(date('d'), 31),
                ))
-         ->add('type', ChoiceType::class, array('choices' => array('Demi-journée' =>'Demi-journée',
-                                                                   'Journée' => 'Journée')))
-         ->add('ticketowner', TicketownerType::class)
-         ->add('reduction', CheckboxType::class, array ('required' => false));
+         ->add('type', ChoiceType::class, array('choices' => array(
+                'Demi-journée' =>'Demi-journée',
+                'Journée' => 'Journée',
+                'label' => 'ticket.type')))
+         ->add('ticketowner', TicketownerType::class, array(
+            'label' => 'Test'))
+         ->add('reduction', CheckboxType::class, array (
+            'required' => false,
+            'attr' => array('nom' => 'checkbox_reduction',
+                            'class' => 'form-check-input'),    
+        ));
     }
     /**
      * {@inheritdoc}

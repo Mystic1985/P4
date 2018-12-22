@@ -1,7 +1,18 @@
 Accueil: Accueil
-Liste: __Liste
-Annuler: __Annuler
-museum.form: __museum.form
-'Informations sur les billets': '__Informations sur les billets'
-'Ajouter un billet': '__Ajouter un billet'
-'Liste des billets': '__Liste des billets'
+Liste: Liste
+Annuler: Annuler
+'Acheter des billets': 'Acheter des billets'
+'Informations sur les billets': 'Informations sur les billets'
+'Ajouter un billet': 'Ajouter un billet'
+museum.subtitle: 'Plateforme de réservation'
+museum.form: Formulaire
+Tickets: Billets
+Validitydate: 'Date de validité'
+Ticketowner: Visiteur
+Firstname: Prénom
+Name: Nom
+Birthdate: 'Date de naissance'
+Country: Pays
+error.payment.declined: 'Paiement refusé'
+ticket.validitydate: 'Date de validité'
+'Vos coordonnées': 'Vos coordonnées'

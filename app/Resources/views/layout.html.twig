@@ -49,6 +49,11 @@
 
     <footer>
       <p>Musée du Louvre © {{ 'now'|date('Y') }}</p>
+        {% if app.request.locale == 'fr' %}
+            <a href="{{ en_url }}">English version</a>
+        {% elseif app.request.locale == 'en' %}
+            <a href="{{ fr_url }}">Version française</a>
+        {% endif %}
     </footer>
   </div>
 

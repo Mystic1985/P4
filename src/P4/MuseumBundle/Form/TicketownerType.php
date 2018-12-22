@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,11 +20,18 @@ class TicketownerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
-            ->add('name')
-            ->add('country', CountryType::class, array('placeholder' => 'Sélectionner un pays'))
+            ->add('firstname', TextType::class, array(
+                'label' => 'ticketowner.firstname'))
+            ->add('name', TextType::class, array(
+                'label' => 'ticketowner.name'))
+            ->add('country', CountryType::class, array(
+                'placeholder' => 'Sélectionner un pays',
+                'label' => 'ticketowner.country'))
             ->add('birthdate', BirthdayType::class, array(
-                'widget' => 'choice',
+                'attr' => array(
+                            'max' => (new \DateTime())->format('Y-m-d')),
+                'label' => 'ticketowner.birthdate', 
+                'widget' => 'single_text',
                 'years' => range(1930, 2018),
                 'placeholder' => ''));
     }

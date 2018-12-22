@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Translation\TranslatorInterface;
 use Doctrine\ORM\EntityManager;
 use Stripe\Charge;
 use Stripe\Error\Base;
@@ -21,8 +22,9 @@ class StripeService
 	private $mailer;
 	private $twig;
 	private $manager;
+	private $translator;
 
-	public function __construct(SessionInterface $session, RouterInterface $router, RequestStack $requestStack, \Swift_Mailer $mailer, \Twig_Environment $twig, EntityManager $manager)
+	public function __construct(SessionInterface $session, RouterInterface $router, RequestStack $requestStack, \Swift_Mailer $mailer, \Twig_Environment $twig, EntityManager $manager, TranslatorInterface $translator)
 	{
 		$this->session = $session;
 		$this->router = $router;
@@ -30,6 +32,7 @@ class StripeService
 		$this->mailer = $mailer;
 		$this->twig = $twig;
 		$this->manager = $manager;
+		$this->translator = $translator;
 	}
 
 	public function getOrder($order)
@@ -50,56 +53,71 @@ class StripeService
             $request = $this->request->getCurrentRequest();
             $token = $request->get('stripeToken');
             $id = $this->session->get('orderid');
+            /*$locale = $request->getLocale();
+            var_dump($locale); die;*/
+
+
+           	$em = $this->manager;
+	        $order = $em->getRepository('P4MuseumBundle:Orders')->find($id);
+	        $paymentstatus = $order->getPaymentstatus();
+
             // Création de la facture
-            try {
-	            \Stripe\Stripe::setApiKey("sk_test_6sEQ3QTQuRwTOEj7KCipjLKI"); 
-	             \Stripe\Charge::create(array(
-	              "amount" => $totalprice,
-	              "currency" => "eur",
-	              "source" => $token, // obtenu avec Stripe.js
-	              "description" => "Facture pour " .$this->session->get('firstname'). ".",
-	              "receipt_email" => $mail),
-	              array("idempotency_key" => (sha1(random_bytes(20)))));
+            if($paymentstatus != 1) // Si le paiement n'a pas encore été effectué
+            {
+	            try {
+		            \Stripe\Stripe::setApiKey("sk_test_6sEQ3QTQuRwTOEj7KCipjLKI"); 
+		             \Stripe\Charge::create(array(
+		              "amount" => $totalprice,
+		              "currency" => "eur",
+		              "source" => $token, // obtenu avec Stripe.js
+		              "description" => "Facture pour " .$this->session->get('firstname'). ".",
+		              "receipt_email" => $mail),
+		              array("idempotency_key" => (sha1(random_bytes(20)))));
 
-	             //Envoi de l'e-mail de confirmation
-	              $em = $this->manager;
-	              $order = $em->getRepository('P4MuseumBundle:Orders')->find($id);
-	              $message = (new \Swift_Message('Votre commande'))
-	            ->setFrom('arnaud.griess@orange.fr')
-	            ->setTo($mail)
-	            ->setBody(
-	                $this->twig->render('P4MuseumBundle:Ticket:mail.html.twig', array('mail' => $mail,
-	                                                                                'order' => $order)),
-	                'text/html');
-	            $this->mailer->send($message);
-	             //Rédirection vers la page de confirmation
-	             return new RedirectResponse($this->router->generate('p4_museum_confirm'));
-	             $session->clear(); // Suppression de la session
-         	}
+		              $message = (new \Swift_Message('Votre commande'))
+		            ->setFrom('arnaud.griess@orange.fr')
+		            ->setTo($mail)
+		            ->setBody(
+		                $this->twig->render('P4MuseumBundle:Ticket:mail.html.twig', array('mail' => $mail,
+		                                                                                'order' => $order)),
+		                'text/html');
+		            $this->mailer->send($message);
+		            $order->setPaymentstatus(1);
+		            $em->persist($order);
+		            $em->flush();
+		             //Rédirection vers la page de confirmation
+		             return new RedirectResponse($this->router->generate('p4_museum_confirm'));
+		             $session->clear(); // Suppression de la session
+	         	}
 
-         	// Gestion des erreurs
-            catch(\Stripe\Error\Card $e) {
-                  $body = $e->getJsonBody();
-                  $err  = $body['error'];
+	         	// Gestion des erreurs
+	            catch(\Stripe\Error\Card $e) {
+	                  $body = $e->getJsonBody();
+	                  $err  = $body['error'];
 
-                  switch($err['code']){
-                    case 'card_declined':
-                        $this->session->getFlashBag()->add('notice', 'Paiement refusé.');
-                        break;
-                    case 'incorrect_cvc':
-                        $this->session->getFlashBag()->add('notice', 'Le code de sécurité de la carte est invalide');
-                        break;
-                    case 'expired_card':
-                        $this->session->getFlashBag()->add('notice', 'Paiement refusé : le solde de votre compte bancaire est insuffisant pour finaliser cette transaction.');
-                        break;
-                    case 'processing_error':
-                        $this->session->getFlashBag()->add('notice', 'Une erreur est survenue. Merci de vérifier les informations saisies ou modifier votre moyen de paiement.');
-                        break;
-                    default:
-                        $this->session->getFlashBag()->add('notice', 'Une erreur est survenue.');
-                        break;
-                    }
-            }
+	                  switch($err['code']){
+	                    case 'insufficient_funds':
+	                        $this->session->getFlashBag()->add('notice', $this->translator->trans('error.payment.declined'));
+	                        break;
+	                    case 'incorrect_cvc':
+	                        $this->session->getFlashBag()->add('notice', $this->translator->trans('error.payment.incorrect_cvc'));
+	                        break;
+	                    case 'expired_card':
+	                        $this->session->getFlashBag()->add('notice', $this->translator->trans('error.payment.expired_card'));
+	                        break;
+	                    case 'processing_error':
+	                        $this->session->getFlashBag()->add('notice', $this->translator->trans('error.payment.processing_error'));
+	                        break;
+	                    default:
+	                        $this->session->getFlashBag()->add('notice', $this->translator->trans('error.payment.default'));
+	                        break;
+	                    }
+	            }
+          }
+
+          else {
+          	$this->session->getFlashBag()->add('notice', 'Le paiement pour cette commande a déjà été effectué.');
+          }
 
             // Si des erreurs sont détectées, redirection vers la page "checkout" et affichage d'un message d'erreur
             return new RedirectResponse($this->router->generate('p4_museum_checkout'));

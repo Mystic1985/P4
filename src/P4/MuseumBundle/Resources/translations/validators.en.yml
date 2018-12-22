@@ -1,1 +1,3 @@
-form.customer.name: 'Nom valide svp'
+'Le musée est fermé le mardi. Merci de sélectionner une nouvelle date.': 'The museum is closed on Tuesday. Please select a new date.'
+'Le musée est fermé à la date de visite choisie. Merci d''en sélectionner une nouvelle.': 'The museum is closed at this date. Please select a new date.'
+'Le code de sécurité de la carte est invalide': 'Invalid code'
