@@ -27,7 +27,14 @@ class TicketController extends Controller
     }
     
     public function checkoutAction(Request $request)
-    {
+    {// Condition affichage -> Erreur 404 si id = null
+        $session = $request->getSession();
+        $id = $session->get('orderid');
+
+        if($id == null) {
+            return $this->render('P4MuseumBundle:Ticket:index.html.twig');
+        }
+        else {
         if ($request->isMethod('POST')){
 
                 $stripeService = $this->get('museum.stripe');
@@ -35,7 +42,7 @@ class TicketController extends Controller
             }
 
         return $this->render('P4MuseumBundle:Ticket:checkout.html.twig');
-
+        }
     }
 
     public function buyAction(Request $request)
@@ -47,11 +54,9 @@ class TicketController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) 
             {
-
                 $ticketService = new TicketService($request->getSession(), $this->getDoctrine()->getManager(), $this->getDoctrine()->getManager()->getRepository('P4MuseumBundle:Orders'));
 
                 $ticketService->createTicket($order);
-
               //Redirection vers le récapitulatif
                 return $this->redirectToRoute('p4_museum_recap');
             }
@@ -69,7 +74,7 @@ class TicketController extends Controller
     }
 
     public function recapAction(Request $request)
-        {
+        {//Condition affichage : Erreur 404 si id = null
             $session = $request->getSession();
 
             $id = $session->get('orderid');
