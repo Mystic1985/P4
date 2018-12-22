@@ -35,14 +35,14 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
-     * @Assert\Length(min=2, max=50, minMessage="Merci de rentrer un nom valide.", maxMessage="Merci de rentrer un nom valide.")
+     * @Assert\Length(min=2, max=50, minMessage="Merci de rentrer un prénom valide.", maxMessage="Merci de rentrer un prénom valide.")
      */
     private $firstname;
 
    /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Adress", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="P4\MuseumBundle\Entity\Adress", cascade={"persist", "remove"})
      * @Assert\Valid()
      */ 
     private $adress;
