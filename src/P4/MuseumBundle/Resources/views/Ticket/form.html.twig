@@ -123,11 +123,11 @@
                 {{ form_widget(form.tickets) }}
             </div>
               <div class="form-group">
-                <input id="addTicket" type="button" class="btn btn-default" value="Ajouter un ticket" data-template="#command_tickets_list">
+                <input id="addTicket" type="button" class="btn btn-default" value="{{ 'Ajouter un billet'|trans }}" data-template="#command_tickets_list">
             </div>
   </fieldset>
   {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-  {{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+  {{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary', 'id': 'valider' }}) }}
 
   {# Fermeture de la balise <form> du formulaire HTML #}
   {{ form_end(form) }}
@@ -140,7 +140,7 @@
 
 <script type="text/javascript">
 
-        const addTicketBtn = document.querySelector("#addTicket")
+       /* const addTicketBtn = document.querySelector("#addTicket")
 
         addTicketBtn.addEventListener('click', (e) => {
             e.preventDefault()
@@ -166,7 +166,7 @@
                 newNode.innerHTML = "test"
                 current.parentNode.insertBefore(newNode, current.nextSibling);
             })
-        });
+        });*/
 </script>
 
 {% endblock %}

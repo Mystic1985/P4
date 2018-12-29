@@ -10,32 +10,32 @@
 
 {% block p4museum_body %}
 
-  <h3>Bienvenue sur la plateforme de réservation en ligne du Musée du Louvre !</h3>
+  <h3>{{ 'index.message'|trans }}</h3>
 
-  Nos tarifs :
+  {{ 'Nos tarifs'|trans }} :
 
-  <table class="table-bordered">
+  <table class="table table-bordered table-responsive">
   <thead>
     <tr>
-      <th>Type de billet</th>
-      <th>Prix</th>
+      <th>{{ 'Type de billet'|trans }}</th>
+      <th>{{ 'Prix'|trans }}</th>
     </tr>
   </thead>
   <tbody>
   	<tr>
-  		<td>Normal(à partir de 12 ans)</td>
+  		<td>{{ 'table.normal'|trans }}</td>
   		<td>16€</td>
   	</tr>
   	<tr>
-  		<td>Enfant(De 8 à 12 ans)</td>
+  		<td>{{ 'table.children'|trans }}</td>
   		<td>8€</td>
   	</tr>
   	<tr>
-  		<td>Sénior(à partir de 60 ans)</td>
+  		<td>{{ 'table.senior'|trans }}</td>
   		<td>12€</td>
   	</tr>
   	<tr>
-  		<td>Réduit(<span id="asterisque">*</span>)</td>
+  		<td>{{ 'table.reduction'|trans }}<span id="asterisque">*</span></td>
   		<td>10€</td>
   	</tr>
   </tbody>

@@ -32,10 +32,9 @@ class TicketType extends AbstractType
                ))
          ->add('type', ChoiceType::class, array('choices' => array(
                 'Demi-journée' =>'Demi-journée',
-                'Journée' => 'Journée',
-                'label' => 'ticket.type')))
+                'Journée' => 'Journée')))
          ->add('ticketowner', TicketownerType::class, array(
-            'label' => 'Test'))
+            'label' => 'ticketowner.label'))
          ->add('reduction', CheckboxType::class, array (
             'required' => false,
             'attr' => array('nom' => 'checkbox_reduction',

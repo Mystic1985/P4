@@ -21,9 +21,11 @@ class TicketownerType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, array(
-                'label' => 'ticketowner.firstname'))
+                'label' => 'ticketowner.firstname',
+                'attr' => array('placeholder' => 'ticketowner.firstname.placeholder')))
             ->add('name', TextType::class, array(
-                'label' => 'ticketowner.name'))
+                'label' => 'ticketowner.name',
+                'attr' => array('placeholder' => 'ticketowner.name.placeholder')))
             ->add('country', CountryType::class, array(
                 'placeholder' => 'Sélectionner un pays',
                 'label' => 'ticketowner.country'))
