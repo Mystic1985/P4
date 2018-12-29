@@ -5,7 +5,10 @@ namespace P4\MuseumBundle\Service;
 use Doctrine\Common\Persistence\ObjectManager;
 use P4\MuseumBundle\Entity\Orders;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use P4\MuseumBundle\Repository\OrdersRepository;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 
 class TicketService
 {
@@ -14,18 +17,15 @@ class TicketService
      */
     private $session;
     /**
-     * @var ObjectManager
+     * @var EntityManager
      */
     private $manager;
+    private $router;
 
-    private $repository;
-
-
-    public function __construct(SessionInterface $session, ObjectManager $manager, OrdersRepository $repository)
+    public function __construct(SessionInterface $session, EntityManager $manager)
     {
         $this->session = $session;
         $this->manager = $manager;
-        $this->repository = $repository;
     }
 
     /**
@@ -42,14 +42,15 @@ class TicketService
         // Flush des informations
         //Récupération des variables de la session
         $this->session->set('orderid', $order->getId());
+        $this->session->set('mail', $order->getCustomer()->getMail());
 
         return $order;
     }
 
-    public function removeOrder(Orders $order)
+    public function removeOrders(Orders $order)
     {
         $id = $this->session->get('orderid');
-        if($id != null)
+        if(isset($id))
             {
                $em = $this->manager;
                $order = $em->getRepository('P4MuseumBundle:Orders')->find($id);
@@ -61,5 +62,9 @@ class TicketService
                     $this->session->clear(); // Suppression des variables de la session 
                 }
             }
+    }
+
+    public function recapOrders($order)
+    {
     }
 }

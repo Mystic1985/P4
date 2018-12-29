@@ -9,6 +9,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\ORM\EntityManager;
 use Stripe\Charge;
 use Stripe\Error\Base;
@@ -85,9 +86,10 @@ class StripeService
 		            $order->setPaymentstatus(1);
 		            $em->persist($order);
 		            $em->flush();
+		            $this->session->clear();
 		             //Rédirection vers la page de confirmation
 		             return new RedirectResponse($this->router->generate('p4_museum_confirm'));
-		             $this->session->clear(); // Suppression de la session
+		             // Suppression de la session
 	         	}
 
 	         	// Gestion des erreurs
@@ -113,10 +115,10 @@ class StripeService
 	                        break;
 	                    }
 	            }
-          }
+	           }
 
           else {
-          	$this->session->getFlashBag()->add('notice', $this->translator->trans('Le paiement pour cette commande a déjà été effectué.'));
+				$this->session->getFlashBag()->add('notice', 'Paiement déjà effectué');  
           }
 
             // Si des erreurs sont détectées, redirection vers la page "checkout" et affichage d'un message d'erreur
