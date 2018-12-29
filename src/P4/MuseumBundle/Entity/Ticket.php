@@ -213,7 +213,7 @@ class Ticket
             ->addViolation();
         }
     }
-        /**
+    /**
      * @Assert\Callback
      */
     public function isTypeValid(ExecutionContextInterface $context)
@@ -251,6 +251,22 @@ class Ticket
         {
             $context
             ->buildViolation('Le musée est fermé le mardi. Merci de sélectionner une nouvelle date.')
+            ->atPath('validitydate')
+            ->addViolation(); 
+        }
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function isValiditydateSunday(ExecutionContextInterface $context)
+    {
+        $validitydate = $this->getValiditydate();
+        $validitydate = $validitydate->format("l");
+        if($validitydate == "Sunday")
+        {
+            $context
+            ->buildViolation('La réservation en ligne est indisponible pour le dimanche. Merci de sélectionner une nouvelle date.')
             ->atPath('validitydate')
             ->addViolation(); 
         }
@@ -315,18 +331,18 @@ class Ticket
         
         foreach($holidays as $holiday) {
             if($validitydatetimestamp == $holiday){
-                if($validitydateday != "Sunday"){
-                        $context
-                        ->buildViolation('La réservation en ligne est indisponible pour les jours fériés. Merci de sélectionner une nouvelle date de visite.')
-                        ->atPath('validitydate')
-                        ->addViolation(); 
-                }
-                else {
+                /*if($validitydateday == "Sunday"){
                         $context
                         ->buildViolation('La réservation en ligne est indisponible pour les dimanches. Merci de sélectionner une nouvelle date.')
                         ->atPath('validitydate')
                         ->addViolation(); 
-                    }
+                }
+                else {*/
+                        $context
+                        ->buildViolation('La réservation en ligne est indisponible pour les jours fériés. Merci de sélectionner une nouvelle date de visite.')
+                        ->atPath('validitydate')
+                        ->addViolation(); 
+                // }        
             }
         }
     }

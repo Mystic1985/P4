@@ -30,6 +30,12 @@ class Orders
     private $customer;
     /**
      * @ORM\OneToMany(targetEntity="P4\MuseumBundle\Entity\Ticket", mappedBy="orders", cascade={"persist", "remove"})
+     * @Assert\Count(
+     *      min = 1,
+     *      max = 5,
+     *      minMessage = "Vous devez commander au moins un billet",
+     *      maxMessage = "Vous ne pouvez pas commander plus de {{ limit }} billets. Pour les commandes de groupe, merci de vous adresser directement au Musée du Louvre."
+     * )
      * @Assert\Valid()
      */
     private $tickets;
