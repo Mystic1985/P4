@@ -16,3 +16,24 @@ Country: Pays
 error.payment.declined: 'Paiement refusé'
 ticket.validitydate: 'Date de validité'
 'Vos coordonnées': 'Vos coordonnées'
+customer.info.name: 'Entrez votre nom (entre 2 et 50 caractères)'
+customer.info.firstname: 'Entrez votre nom (entre 2 et 50 caractères)'
+customer.info.mail: 'Entrez votre adresse mail'
+ticketowner.firstname: Prénom
+ticketowner.name: Nom
+ticketowner.country: Pays
+ticketowner.birthdate: 'Date de naissance'
+ticketowner.label: Visiteur
+ticketowner.name.placeholder: 'Entrez le nom du visiteur (entre 2 et 50 caractères)'
+ticketowner.firstname.placeholder: 'Entrez le prénom du visiteur (entre 2 et 50 caractères)'
+index.message: 'Bienvenue sur la plateforme de réservation en ligne du Musée du Louvre !'
+table.normal: 'Normal (à partir de 12 ans)'
+table.children: 'Enfant (de 8 à 12 ans)'
+table.senior: 'Sénior (à partir de 60 ans)'
+table.reduction: Réduit
+'Nos tarifs': 'Nos tarifs'
+recap.subtitle: 'Récapitulatif de votre commande'
+'Type de billet': 'Type de billet'
+Prix: Prix
+ticket.type.halfday: Demi-journée
+ticket.type.fullday: Journée

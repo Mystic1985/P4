@@ -37,3 +37,27 @@ ticketowner.firstname: Firstname
 ticketowner.birthdate: Birthdate
 ticketowner.country: Country
 'Numéro de rue': 'Street number'
+validitydate.placeholder: dd/mm/aaaa
+index.message: 'Welcome to our booking platform !'
+'Nos tarifs': Prices
+'Type de billet': Type
+Prix: Price
+table.normal: 'Normal (from 12 years old)'
+table.children: 'Children (8 to 12 years old)'
+table.senior: 'Senior (from 60 years old)'
+table.reduction: Reduction
+ticketowner.name.placeholder: 'Enter ticketowner''s name (2 to 50 characters)'
+ticketowner.firstname.placeholder: 'Enter ticketowner''s firstname (2 to 50 characters)'
+ticketowner.label: Ticketowner
+recap.subtitle: Summary
+E-mail: E-mail
+Billet: Ticket
+'Date de naissance': Birthdate
+'Tarif réduit': Reduction
+'Informations sur les visiteurs': Ticketowners
+Oui: 'Yes'
+Non: 'No'
+Payer: Payment
+Confirmer: Confirm
+ticket.type.halfday: 'Half day'
+ticket.type.fullday: 'Full day'
