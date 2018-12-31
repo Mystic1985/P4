@@ -5,6 +5,7 @@ namespace P4\MuseumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use P4\MuseumBundle\Validator\Mailvalid;
 
 /**
  * Customer
@@ -51,6 +52,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255)
+     * @Mailvalid()
      */
     private $mail;
 
@@ -160,20 +162,4 @@ class Customer
     {
         return $this->adress;
     }
-
-    /**
-    * @Assert\Callback
-    */
-    public function isMailValid(ExecutionContextInterface $context)
-    {
-    // On vérifie que le contenu est un mail
-    if (!preg_match('#^[a-z0-9.-_]+@[a-z0-9.-_]{2,}\.[a-z]{2,4}$#', $this->getMail())) {
-      // Définition de l'erreur
-      $context
-        ->buildViolation('Veuillez renseigner une adresse mail valide.') // Message d'erreur
-        ->atPath('mail')// attribut de l'objet qui est violé
-        ->addViolation() // Déclenchement de l'erreur
-      ;
-    }
-  }
 }
