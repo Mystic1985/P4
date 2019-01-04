@@ -1,5 +1,5 @@
 <?php
-// src/P4/MuseumBundle/Validator/Ticketlimit.php
+// src/P4/MuseumBundle/Validator/Mailvalid.php
 
 namespace P4\MuseumBundle\Validator;
 

@@ -1,5 +1,5 @@
 <?php
-// src/P4/MuseumBundle/Validator/MailvalidValidator.php
+// src/P4/MuseumBundle/Validator/IsClosedValidator.php
 
 namespace P4\MuseumBundle\Validator;
 
@@ -10,7 +10,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use P4\MuseumBundle\Controller\TicketController;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class MailvalidValidator extends ConstraintValidator
+class IsClosedValidator extends ConstraintValidator
 {
 	private $requestStack;
 	private $em;
@@ -25,8 +25,22 @@ class MailvalidValidator extends ConstraintValidator
 
 	public function validate($value, Constraint $constraint)
 	{ 
-		if (!preg_match('#^[a-z0-9.-_]+@[a-z0-9.-_]{2,}\.[a-z]{2,4}$#', $value)) {
-			$this->context->addViolation($constraint->message);
-		}
+        $value = $value->format("md");
+
+        $fetedutravail = new \DateTime("2000-05-01");
+        $toussaint = new \DateTime("2000-11-01");
+        $christmas = new \DateTime("2000-12-25");
+
+        $holidays = array(
+            $fetedutravail->format("md"),
+            $toussaint->format("md"),
+            $christmas->format("md"));
+
+        foreach($holidays as $holiday) {
+            if($value == $holiday)
+            {
+            	$this->context->addViolation($constraint->message);
+            }
+        }
 	}  
 }
