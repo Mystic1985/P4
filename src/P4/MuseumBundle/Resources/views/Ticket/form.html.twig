@@ -121,7 +121,7 @@
   <fieldset>
             <div id="command_tickets_list" data-prototype="{{ form_widget(form.tickets.vars.prototype)|e }}" data-widget-tags="{{ 'div'|e }}">
                 {{ form_widget(form.tickets) }}
-            </div>
+            </div><br />
               <div class="form-group">
                 <input id="addTicket" type="button" class="btn btn-default" value="{{ 'Ajouter un billet'|trans }}" data-template="#command_tickets_list">
             </div>
@@ -134,13 +134,13 @@
 </div>
 
 {% block javascripts %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <noscript><div class="alert alert-danger" role="alert">JavaScript est désactivé. Pour afficher toutes les informations, merci de l'activer et d'actualiser la page.</div></noscript>
 
 
 <script type="text/javascript">
 
-       /* const addTicketBtn = document.querySelector("#addTicket")
+       /*const addTicketBtn = document.querySelector("#addTicket")
 
         addTicketBtn.addEventListener('click', (e) => {
             e.preventDefault()
@@ -159,14 +159,21 @@
 
             list.appendChild(ticketElement)
 
+            const newNode = document.createElement('div')
+            newNode.innerHTML = "test"
+
             ticketElement.querySelector('.form-check-input').addEventListener('click', (e) => {
                 const current = e.target // = checkbox
+              if(ticketElement.querySelector('.form-check-input').checked === true){
+                current.parentNode.insertBefore(newNode, current);
+              }
+              else {
+                current.parentNode.removeChild(newNode);
+              }
 
-                const newNode = document.createElement('div')
-                newNode.innerHTML = "test"
-                current.parentNode.insertBefore(newNode, current.nextSibling);
-            })
+            });
         });*/
+
 </script>
 
 {% endblock %}

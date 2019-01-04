@@ -40,8 +40,8 @@ twig:
     form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
     globals:
-        en_url: http://localhost:8888/web/app_dev.php/en/museum/buy
-        fr_url: http://localhost:8888/web/app_dev.php/fr/museum/buy
+        en_url: http://localhost:8888/web/app_dev.php/en/museum/
+        fr_url: http://localhost:8888/web/app_dev.php/fr/museum/
 
 # Doctrine Configuration
 doctrine:

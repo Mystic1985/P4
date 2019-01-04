@@ -7,6 +7,36 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: p4_museum_ticketlimit }  # C'est avec l'alias qu'on retrouvera le service
 
+    p4_museum.validator.mailvalid:                              
+        class: P4\MuseumBundle\Validator\MailvalidValidator     
+        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
+        tags:
+            - { name: validator.constraint_validator, alias: p4_museum_mailvalid }  
+
+    p4_museum.validator.tuesdayvaliditydate:                              
+        class: P4\MuseumBundle\Validator\TuesdayvaliditydateValidator     
+        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
+        tags:
+            - { name: validator.constraint_validator, alias: p4_museum_tuesdayvaliditydate } 
+
+    p4_museum.validator.sundayvaliditydate:                              
+        class: P4\MuseumBundle\Validator\SundayvaliditydateValidator     
+        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
+        tags:
+            - { name: validator.constraint_validator, alias: p4_museum_sundayvaliditydate }  
+
+    p4_museum.validator.isclosed:                              
+        class: P4\MuseumBundle\Validator\IsClosedValidator     
+        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
+        tags:
+            - { name: validator.constraint_validator, alias: p4_museum_isclosed } 
+
+    p4_museum.validator.holidayticket:                              
+        class: P4\MuseumBundle\Validator\HolidayticketValidator     
+        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
+        tags:
+            - { name: validator.constraint_validator, alias: p4_museum_holidayticket } 
+
     acme.twig.country_extension:
         class: P4\MuseumBundle\Twig\CountryExtension
         tags:
@@ -17,6 +47,7 @@ services:
             autowire: false
             arguments:
                 - '@session'
+                - '@doctrine.orm.entity_manager'
 
     museum.stripe:
             class: P4\MuseumBundle\Service\StripeService

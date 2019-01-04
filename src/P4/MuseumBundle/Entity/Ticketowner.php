@@ -4,6 +4,7 @@ namespace P4\MuseumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use P4\MuseumBundle\Validator\Sundayvaliditydate;
 
 /**
  * Ticketowner

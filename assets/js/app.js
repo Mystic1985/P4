@@ -1,8 +1,67 @@
 require('../css/app.scss');
 
-  $(document).ready(function() {
+        const addTicketBtn = document.querySelector("#addTicket")
+
+        addTicketBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            const list = document.querySelector(addTicketBtn.dataset.template)
+            let counter = list.dataset.counter | list.children.length
+
+            let newTicket = list.dataset.prototype
+            newTicket = newTicket.replace(/__name__/g, counter)
+            counter++
+
+            list.dataset.counter = counter
+
+            const ticketElement = document.createElement(list.dataset.widgetTags)
+
+            ticketElement.innerHTML = newTicket
+            // Création du bouton de suppression d'un ticket
+            const deleteElement = document.createElement('INPUT')
+            deleteElement.setAttribute("type", "button")
+            deleteElement.id = "suppr"
+            deleteElement.className = "btn btn-danger"
+
+            var enUrl = /en\/museum\/buy$/
+            var urlComplet = document.location.href;
+
+            if(enUrl.test(urlComplet))
+            {
+              deleteElement.setAttribute("value", "Delete")
+            }
+            else
+            {
+              deleteElement.setAttribute("value", "Supprimer")
+            }
+            
+            ticketElement.appendChild(deleteElement)
+
+            list.appendChild(ticketElement)
+            // Evènement au clic du bouton
+            deleteElement.addEventListener('click', (e) => {
+              const current = e.target
+              current.parentNode.remove()
+            });
+            
+            // Création du message d'information quand la checkbox "Reduction" est cochée
+            const newNode = document.createElement('div')
+            newNode.innerHTML = "test"
+
+            // Fonction d'affichage de l'élément crée lors du clic sur la checkbox
+            ticketElement.querySelector('.form-check-input').addEventListener('click', (e) => {
+                const current = e.target // = checkbox
+              if(ticketElement.querySelector('.form-check-input').checked === true){
+                current.parentNode.insertBefore(newNode, current);
+              }
+              else {
+                current.parentNode.removeChild(newNode);
+              }
+            });
+        });
+
+  /*$(document).ready(function() {
     // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-    //var $container = $('div#p4_museumbundle_orders_tickets');
 
     var $container = $('div#command_tickets_list');
 
@@ -46,10 +105,16 @@ require('../css/app.scss');
       // On ajoute le prototype modifié à la fin de la balise <div>
       $container.append($prototype);
 
-      $('<strong>test</strong><br />').insertBefore($('[nom="checkbox_reduction"]'));
+      /*$('.form-check-input').click(function(){
+        $("<div><strong>Test</strong></div>").append($('.form-check-input'));
+      });*/
+
+      /*ticketElement.querySelector('.form-check-input').addEventListener('click', (e)*/
+
+      /*$('<strong>test</strong><br />').insertBefore($('.form-check-input'));*/
 
       // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-      index++;
+      /*index++;
     }
 
     // La fonction qui ajoute un lien de suppression d'une catégorie
@@ -64,7 +129,7 @@ require('../css/app.scss');
       }
       else
       {
-        var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+        var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
       }
 
       // Ajout du lien
@@ -78,4 +143,4 @@ require('../css/app.scss');
         return false;
       });
     }
-  });
+  });*/
