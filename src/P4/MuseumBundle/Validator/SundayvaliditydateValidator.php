@@ -12,23 +12,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class SundayvaliditydateValidator extends ConstraintValidator
 {
-	private $requestStack;
-	private $em;
-
-	// Les arguments déclarés dans la définition du service arrivent au constructeur
-	// On doit les enregistrer dans l'objet pour pouvoir s'en resservir dans la méthode validate()
-	public function __construct(RequestStack $requestStack, EntityManagerInterface $em)
-	{
-	  $this->requestStack = $requestStack;
-	  $this->em           = $em;
-	}
+    const SUNDAY = "Sunday";
 
 	public function validate($value, Constraint $constraint)
-	{ 
-        $value = $value->format("l");
-        if($value == "Sunday")
+	{
+        if($value->format("l") == self::SUNDAY)
         {
         	$this->context->addViolation($constraint->message);
         }
-	}  
+	}
 }
