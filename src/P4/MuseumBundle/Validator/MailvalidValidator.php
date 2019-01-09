@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class MailvalidValidator extends ConstraintValidator
 {
-	private $requestStack;
+	/*private $requestStack;
 	private $em;
 
 	// Les arguments déclarés dans la définition du service arrivent au constructeur
@@ -21,7 +21,7 @@ class MailvalidValidator extends ConstraintValidator
 	{
 	  $this->requestStack = $requestStack;
 	  $this->em           = $em;
-	}
+	}*/
 
 	public function validate($value, Constraint $constraint)
 	{ 
