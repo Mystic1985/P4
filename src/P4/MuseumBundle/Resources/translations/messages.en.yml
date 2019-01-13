@@ -61,3 +61,5 @@ Payer: Payment
 Confirmer: Confirm
 ticket.type.halfday: 'Half day'
 ticket.type.fullday: 'Full day'
+'Choix du billet': '__Choix du billet'
+'La réservation en ligne est indisponible pour le dimanche. Merci de sélectionner une autre date.': 'The online booking is unavailable for Sunday. Please select a new date.'
