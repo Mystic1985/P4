@@ -1,5 +1,5 @@
 <?php
-//src/P4/MuseumBundle/Validator\Sundayvaliditydate
+//src/P4/MuseumBundle/Validator/Sundayvaliditydate
 
 namespace P4\MuseumBundle\Validator;
 

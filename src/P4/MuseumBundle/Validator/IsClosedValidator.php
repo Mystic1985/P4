@@ -12,16 +12,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class IsClosedValidator extends ConstraintValidator
 {
-	private $requestStack;
-	private $em;
-
-	// Les arguments déclarés dans la définition du service arrivent au constructeur
-	// On doit les enregistrer dans l'objet pour pouvoir s'en resservir dans la méthode validate()
-	public function __construct(RequestStack $requestStack, EntityManagerInterface $em)
-	{
-	  $this->requestStack = $requestStack;
-	  $this->em           = $em;
-	}
 
 	public function validate($value, Constraint $constraint)
 	{ 

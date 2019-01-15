@@ -10,10 +10,10 @@ use Symfony\Component\Validator\Constraint;
  */
 class Mailvalid extends Constraint
 {
-  	public $message = "Veuillez rentrer une adresse mail valide.";
+  	public $message = 'Merci de renseigner une adresse mail valide.';
 
   	public function validatedBy()
   	{
-  		return 'p4_museum_mailvalid'; // On fait appel à l'alias du service
+  		return 'p4_museum_mailvalid'; // Alias du service
   	}
 }
