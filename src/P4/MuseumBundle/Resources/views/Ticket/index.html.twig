@@ -1,18 +1,16 @@
-{# src/OC/PlatformBundle/Resources/views/Advert/index.html.twig #}
-
-{# src/OC/PlatformBundle/Resources/views/Advert/index.html.twig #}
-
 {% extends "P4MuseumBundle::layout.html.twig" %}
 
 {% block title %}
   {{ 'Accueil'|trans }} - {{ parent() }}
 {% endblock %}
 
+{% block subtitle %}
+    <h2>{{ 'index.message'|trans }}</h2>
+{% endblock %}
+
 {% block p4museum_body %}
 
-  <h3>{{ 'index.message'|trans }}</h3>
-
-  {{ 'Nos tarifs'|trans }} :
+  {{ 'Nos tarifs'|trans }} : <br /><br />
 
   <table class="table table-bordered table-responsive">
   <thead>
@@ -39,6 +37,7 @@
   		<td>10€</td>
   	</tr>
   </tbody>
-</table>
+</table><br /><br />
+*{{ 'Etudiant(e), employé(e) du musée, d’un service du Ministère de la Culture, militaire.'|trans }}
 
 {% endblock %}

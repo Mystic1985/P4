@@ -26,14 +26,38 @@ ticketowner.birthdate: 'Date de naissance'
 ticketowner.label: Visiteur
 ticketowner.name.placeholder: 'Entrez le nom du visiteur (entre 2 et 50 caractères)'
 ticketowner.firstname.placeholder: 'Entrez le prénom du visiteur (entre 2 et 50 caractères)'
-index.message: 'Bienvenue sur la plateforme de réservation en ligne du Musée du Louvre !'
+index.message: 'Bienvenue sur la plateforme de réservation en ligne du Musée du Louvre'
 table.normal: 'Normal (à partir de 12 ans)'
 table.children: 'Enfant (de 8 à 12 ans)'
 table.senior: 'Sénior (à partir de 60 ans)'
 table.reduction: Réduit
 'Nos tarifs': 'Nos tarifs'
 recap.subtitle: 'Récapitulatif de votre commande'
+mail.subtitle: 'Récapitulatif de votre commande'
 'Type de billet': 'Type de billet'
 Prix: Prix
 ticket.type.halfday: Demi-journée
 ticket.type.fullday: Journée
+'Réservation confirmée': 'Réservation confirmée'
+Nom: Nom
+Prénom: Prénom
+E-mail: E-mail
+'Numéro de rue': 'Numéro de rue'
+'Nom de rue': 'Nom de rue'
+'Code postal': 'Code postal'
+Ville: Ville
+Pays: Pays
+'Informations sur les visiteurs': 'Informations sur les visiteurs'
+Billet: Billet
+'Date de naissance': 'Date de naissance'
+'Tarif réduit': 'Tarif réduit'
+Oui: Oui
+Non: Non
+Confirmer: Confirmer
+Payer: Payer
+order.summary: 'Récapitulatif de votre commande'
+'Etudiant(e), employé(e) du musée, d’un service du Ministère de la Culture, militaire.': 'Etudiant(e), employé(e) du musée, d’un service du Ministère de la Culture, militaire.'
+Merci: Merci
+order.title: '[Musée du Louvre]Votre commande'
+confirm.page.message: 'Votre réservation est confirmée ! Un mail récapitulant votre commande vous a été envoyé.'
+mail.information: 'Ce mail fait office de billet, merci de l''imprimer et de le présenter lors de votre arrivée.'

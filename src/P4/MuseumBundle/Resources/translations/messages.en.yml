@@ -13,7 +13,7 @@ Demi-journée: 'Half day'
 Journée: 'Full day'
 'Ajouter un billet': 'Add ticket'
 Valider: Submit
-'Récapitulatif de votre commande': Summary
+order.summary: Summary
 museum.subtitle: 'Booking platform'
 museum.form: 'Booking form'
 'Vos coordonnées': 'Contact informations'
@@ -38,7 +38,7 @@ ticketowner.birthdate: Birthdate
 ticketowner.country: Country
 'Numéro de rue': 'Street number'
 validitydate.placeholder: dd/mm/aaaa
-index.message: 'Welcome to our booking platform !'
+index.message: 'Welcome to our booking platform'
 'Nos tarifs': Prices
 'Type de billet': Type
 Prix: Price
@@ -50,6 +50,7 @@ ticketowner.name.placeholder: 'Enter ticketowner''s name (2 to 50 characters)'
 ticketowner.firstname.placeholder: 'Enter ticketowner''s firstname (2 to 50 characters)'
 ticketowner.label: Ticketowner
 recap.subtitle: Summary
+mail.subtitle: 'Your order'
 E-mail: E-mail
 Billet: Ticket
 'Date de naissance': Birthdate
@@ -61,5 +62,11 @@ Payer: Payment
 Confirmer: Confirm
 ticket.type.halfday: 'Half day'
 ticket.type.fullday: 'Full day'
-'Choix du billet': '__Choix du billet'
 'La réservation en ligne est indisponible pour le dimanche. Merci de sélectionner une autre date.': 'The online booking is unavailable for Sunday. Please select a new date.'
+'Réservation confirmée': 'Order completed'
+'Etudiant(e), employé(e) du musée, d’un service du Ministère de la Culture, militaire.': 'Student, Museum worker, worker of the Ministry of Culture, military.'
+Merci: Thanks
+'Récapitulatif de votre commande': '__Récapitulatif de votre commande'
+order.title: '[Musée du Louvre]Your order'
+confirm.page.message: 'Your reservation is confirmed ! An email summarizing your order has been sent to you.'
+mail.information: 'This e-mail serves as a ticket, thank you for printing it and presenting it on your arrival.'

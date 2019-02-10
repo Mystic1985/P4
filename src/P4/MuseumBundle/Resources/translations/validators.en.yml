@@ -5,3 +5,4 @@
 'La réservation en ligne est indisponible pour les jours fériés. Merci de sélectionner une nouvelle date de visite.': 'The online booking is unavailable for public holidays. Please select a new date.'
 'Merci de renseigner une adresse mail valide.': 'Please enter a valid email address.'
 'Il est impossible de réserver un billet de type "Journée" après 14 heures.': 'It is unable to book a "Full Day" ticket after 2 PM.'
+'Vous devez commander au moins un billet.': 'You must order at least one ticket.'

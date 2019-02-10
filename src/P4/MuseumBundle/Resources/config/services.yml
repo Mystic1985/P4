@@ -41,6 +41,12 @@ services:
         class: P4\MuseumBundle\Twig\CountryExtension
         tags:
             - { name: twig.extension }
+
+    app.request:
+        class: Symfony\Component\HttpFoundation\RequestStack
+        factory: 
+            - '@request_stack'
+            - 'getCurrentRequest'
             
     museum.ticket:
             class: P4\MuseumBundle\Service\TicketService
@@ -49,13 +55,22 @@ services:
                 - '@session'
                 - '@doctrine.orm.entity_manager'
 
+    museum.mail:
+            class: P4\MuseumBundle\Service\MailService
+            autowire: false
+            arguments:
+                - '@mailer'
+                - '@twig'
+                - '@translator'
+
     museum.stripe:
             class: P4\MuseumBundle\Service\StripeService
             arguments:
                 - '@session'
                 - '@router'
-                - '@request_stack'
-                - '@mailer'
+                - '@app.request'
                 - '@twig'
                 - '@doctrine.orm.entity_manager'
                 - '@translator'
+                - '%stripe_secret_key%'
+                - '@museum.mail'

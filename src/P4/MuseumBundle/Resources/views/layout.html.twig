@@ -1,5 +1,3 @@
-{# src/OC/PlatformBundle/Resources/views/layout.html.twig #}
-
 {% extends "::layout.html.twig" %}
 
 {% block title %}
@@ -8,16 +6,15 @@
 
 {% block body %}
 
-  {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
-  <div class="row">
- <div class="col-md-12 text-center">
-  {% block subtitle %}
-  {% endblock %}
-  <hr>
-  <div class="col-sm-12">
-	<img src="{{ asset('images/louvre.jpg')}}" class="img-responsive center-block" id="louvre" alt="louvre" /><br /><br />
-</div>
-</div>
+<div class="row">
+	 <div class="col-md-12 text-center">
+	  {% block subtitle %}
+	  {% endblock %}
+	  <hr>
+		<div class="col-sm-12">
+			<img src="{{ asset('images/louvre.jpg')}}" class="img-responsive center-block" id="louvre" alt="louvre" /><br /><br />
+		</div>
+	</div>
 </div>
   {% block p4museum_body %}
   {% endblock %}
