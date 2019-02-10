@@ -34,13 +34,13 @@ class TicketService
      * @param Orders $order
      * @return Orders
      */
-    public function createTicket(Orders $order): Orders
+    public function createTicket(Orders $order)
     {
         $em = $this->manager;
         $em->persist($order);
         $em->flush();
         // Flush des informations
-        //Récupération des variables de la session
+        // Définition des variables de la session
         $this->session->set('orderid', $order->getId());
         $this->session->set('mail', $order->getCustomer()->getMail());
 
@@ -62,9 +62,5 @@ class TicketService
                     $this->session->clear(); // Suppression des variables de la session 
                 }
             }
-    }
-
-    public function recapOrders($order)
-    {
     }
 }
