@@ -38,10 +38,10 @@ class Ticket
      *
      * @ORM\Column(name="validitydate", type="date")
      * @Ticketlimit()
-     * @Tuesdayvaliditydate()
      * @Sundayvaliditydate()
      * @IsClosed()
      * @Holidayticket()
+     * @Tuesdayvaliditydate()
      */
     private $validitydate;
     /**
@@ -204,26 +204,6 @@ class Ticket
 
         return $ticketprice;
     }
-    
-    /**
-     * @Assert\Callback
-     */
-    /*public function isValiditydateValid(ExecutionContextInterface $context)
-    {
-          $today = new \DateTime();
-          $today = $today->format("Ymd");
-
-          $validitydate = $this->getValiditydate();
-          $validitydate = $validitydate->format("Ymd");
-
-          if ($validitydate < $today)
-          {
-            $context
-            ->buildViolation('La date de visite ne peut pas être antérieure à la date d\'aujourd\'hui.')
-            ->atPath('validitydate')
-            ->addViolation();
-        }
-    }*/
 
     /**
      * @Assert\Callback
@@ -232,23 +212,21 @@ class Ticket
     {
         //Récupération du type de billet
         $type = $this->getType();
-
         $validitydate = $this->getValiditydate();
-        $validitydate = $validitydate->format("Ymd");
+        $validitydate = $validitydate->format("d/m/Y");
         $today = new \DateTime();
-        $today = $today->format("Ymd");
+        $today = $today->format("d/m/Y");
         //Création d'un objet DateTime et formatage de la date pour extraire l'heure
         $time = new \DateTime();
         $time = $time->format("H:i:s");
         //Définition de l'heure limite
-        $limit = new \DateTime("14:00:00");
+        $limit = new \DateTime("10:00:00");
         $limit = $limit->format("H:i:s");
-
         if($validitydate == $today){
             if($limit < $time && $type == self::FULL_DAY)
             {
                 $context
-                    ->buildViolation('Il n\'est pas possible de réserver un billet de type "Journée" après 14 heures.')
+                    ->buildViolation('Il est impossible de réserver un billet de type "Journée" après 14 heures.')
                     ->atPath('type')
                     ->addViolation();                 
             }

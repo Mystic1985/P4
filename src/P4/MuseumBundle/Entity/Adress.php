@@ -190,21 +190,4 @@ class Adress
     {
         return $this->country;
     }
-    /**
-    * @Assert\Callback
-    */
-    public function isContentValid(ExecutionContextInterface $context)
-    {
-    $forbiddenWords = array('démotivation', 'abandon');
-
-    // On vérifie que le contenu ne contient pas l'un des mots
-    if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getCity())) {
-      // La règle est violée, on définit l'erreur
-      $context
-        ->buildViolation('Contenu invalide car il contient un mot interdit.') // message
-        ->atPath('city')                                                   // attribut de l'objet qui est violé
-        ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
-      ;
-    }
-  }
 }
