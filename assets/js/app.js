@@ -1,7 +1,7 @@
 require('../css/app.scss');
 
   $(document).ready(function() {
-    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype ».
     var $container = $('div#p4_museumbundle_orders_tickets');
 
     // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
@@ -28,9 +28,6 @@ require('../css/app.scss');
 
     //Ajout d'un formulaire TicketType
     function addTicket($container) {
-      // Dans le contenu de l'attribut « data-prototype », on remplace :
-      // - le texte "__name__label__" qu'il contient par le label du champ
-      // - le texte "__name__" qu'il contient par le numéro du champ
       var template = $container.attr('data-prototype')
         .replace(/__name__label__/g, 'Billet')
         .replace(/__name__/g,        index)
@@ -50,12 +47,14 @@ require('../css/app.scss');
       if(enUrl.test(urlComplet))
       {
         var justificatif = $("<div>A proof will be required when presenting your ticket.</div>");
+        justificatif.addClass('proof');
       }
       else
       {
         var justificatif = $("<div>Un justificatif vous sera demandé lors de la présentation de votre billet.</div>")
+        justificatif.addClass('proof');
       }
-      //justificatif.css('color', 'red');
+
       justificatif.css('color', 'red');
 
       $prototype.find('.form-check-input').click(function(){
