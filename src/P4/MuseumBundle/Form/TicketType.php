@@ -24,12 +24,10 @@ class TicketType extends AbstractType
     {
         $builder
          ->add('validitydate', DateType::class, array(
-                 'attr' => array('min' => (new \DateTime())->format('Y-m-d')),
+                 'attr' => array('min' => (new \DateTime())->format('Y-m-d'),
+                                 'max' => (new \DateTime())->add(new \DateInterval('P1Y'))->format('Y-m-d')),
                  'label' => 'ticket.validitydate',
-                 'widget' => 'single_text',
-                 'years' => range(date('Y'), date('Y')+1),
-                 'months' => range(date('m'), 12),
-                 'days' => range(date('d'), 31),
+                 'widget' => 'single_text'
                ))
          ->add('type', ChoiceType::class, array('choices' => array(
                 'Demi-journée' => Ticket::HALF_DAY,

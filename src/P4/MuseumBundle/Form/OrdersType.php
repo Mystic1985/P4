@@ -25,7 +25,13 @@ class OrdersType extends AbstractType
                 'entry_type' => TicketType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference' => false
+                'by_reference' => false,
+                'prototype' => true,
+                'label' => 'Billets',
+                'label_attr' => array('class' => 'titre_billet'),
+                'entry_options' => ['label' => "Billet"],
+                'attr' => array(
+                    'class' => 'ticketcollection')
                 ))
             ->add('customer', CustomerType::class)
             ->add('valider', SubmitType::class);

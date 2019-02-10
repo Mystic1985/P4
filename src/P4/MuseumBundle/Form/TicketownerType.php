@@ -32,7 +32,8 @@ class TicketownerType extends AbstractType
                 'label' => 'ticketowner.country'))
             ->add('birthdate', BirthdayType::class, array(
                 'attr' => array(
-                            'max' => (new \DateTime())->format('Y-m-d')),
+                            'max' => (new \DateTime())->format('Y-m-d'),
+                            'min' => (new \DateTime())->sub(new \DateInterval('P100Y'))->format('Y-m-d')),
                 'label' => 'ticketowner.birthdate', 
                 'widget' => 'single_text',
                 'years' => range(1930, 2018),
