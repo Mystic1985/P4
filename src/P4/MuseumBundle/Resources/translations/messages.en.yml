@@ -66,7 +66,6 @@ ticket.type.fullday: 'Full day'
 'Réservation confirmée': 'Order completed'
 'Etudiant(e), employé(e) du musée, d’un service du Ministère de la Culture, militaire.': 'Student, Museum worker, worker of the Ministry of Culture, military.'
 Merci: Thanks
-'Récapitulatif de votre commande': '__Récapitulatif de votre commande'
-order.title: '[Musée du Louvre]Your order'
+'[Musée du Louvre]Votre commande': '[Musée du Louvre]Your order'
 confirm.page.message: 'Your reservation is confirmed ! An email summarizing your order has been sent to you.'
 mail.information: 'This e-mail serves as a ticket, thank you for printing it and presenting it on your arrival.'

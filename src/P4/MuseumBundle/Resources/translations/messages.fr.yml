@@ -58,6 +58,6 @@ Payer: Payer
 order.summary: 'Récapitulatif de votre commande'
 'Etudiant(e), employé(e) du musée, d’un service du Ministère de la Culture, militaire.': 'Etudiant(e), employé(e) du musée, d’un service du Ministère de la Culture, militaire.'
 Merci: Merci
-order.title: '[Musée du Louvre]Votre commande'
+'[Musée du Louvre]Votre commande': '[Musée du Louvre]Votre commande'
 confirm.page.message: 'Votre réservation est confirmée ! Un mail récapitulant votre commande vous a été envoyé.'
 mail.information: 'Ce mail fait office de billet, merci de l''imprimer et de le présenter lors de votre arrivée.'
