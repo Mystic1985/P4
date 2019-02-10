@@ -88,7 +88,7 @@ class MailServiceTest extends TestCase
             $mailservice->expects($this->once())
             				  ->method('createMessage')
             				  ->willReturn(new \Swift_Message('<podjfp'))
-            				  ->with('Votre commande', 'musee@louvre.com', $order->getCustomer()->getMail(), $order, 'P4MuseumBundle:Ticket:mail.html.twig');
+            				  ->with('[Musée du Louvre]Votre commande', 'musee@louvre.com', $order->getCustomer()->getMail(), $order, 'P4MuseumBundle:Ticket:mail.html.twig');
 
             $mailservice->sendConfirmMessage($order);
 	}
