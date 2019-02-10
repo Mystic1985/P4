@@ -14,7 +14,7 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>src/P4/MuseumBundle/Tests/Entity</directory>
+            <directory>Tests</directory>
         </testsuite>
     </testsuites>
 
