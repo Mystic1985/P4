@@ -9,7 +9,6 @@
   <title>{% block title %}Musée du Louvre{% endblock %}</title>
 
   {% block stylesheets %}
-    {# On charge le CSS de bootstrap depuis le site directement #}
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
   {% endblock %}
@@ -18,7 +17,7 @@
 <body>
   <div class="container">
     <div id="header" class="jumbotron">
-      <h1 class="text-center">Musée du louvre</h1>
+      <h1 class="text-center">Musée du Louvre</h1>
       <p class="text-center">
           {{ 'museum.subtitle'|trans}}
       </p>
@@ -47,13 +46,15 @@
 
     <hr>
 
-    <footer>
+    <footer class="text-center">
+      <div class="col-md-12 text-center">
       <p>Musée du Louvre © {{ 'now'|date('Y') }}</p>
         {% if app.request.locale == 'fr' %}
             <a href="{{ en_url }}">English version</a>
         {% elseif app.request.locale == 'en' %}
             <a href="{{ fr_url }}">Version française</a>
         {% endif %}
+      </div>
     </footer>
   </div>
 
