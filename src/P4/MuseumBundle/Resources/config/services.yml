@@ -1,39 +1,32 @@
-# src/OC/PlatformBundle/Resources/config/services.yml
-
 services:
-    p4_museum.validator.ticketlimit:                              # Le nom du service
-        class: P4\MuseumBundle\Validator\TicketlimitValidator     # La classe du service, ici notre validateur déjà créé
-        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] # Les données qu'on injecte au service : la requête et l'EntityManager
+    p4_museum.validator.ticketlimit:                              
+        class: P4\MuseumBundle\Validator\TicketlimitValidator     
+        arguments: ["@doctrine.orm.entity_manager"] 
         tags:
-            - { name: validator.constraint_validator, alias: p4_museum_ticketlimit }  # C'est avec l'alias qu'on retrouvera le service
+            - { name: validator.constraint_validator, alias: p4_museum_ticketlimit }  
 
     p4_museum.validator.mailvalid:                              
         class: P4\MuseumBundle\Validator\MailvalidValidator     
-        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
         tags:
             - { name: validator.constraint_validator, alias: p4_museum_mailvalid }  
 
     p4_museum.validator.tuesdayvaliditydate:                              
         class: P4\MuseumBundle\Validator\TuesdayvaliditydateValidator     
-        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
         tags:
             - { name: validator.constraint_validator, alias: p4_museum_tuesdayvaliditydate } 
 
     p4_museum.validator.sundayvaliditydate:                              
         class: P4\MuseumBundle\Validator\SundayvaliditydateValidator     
-        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
         tags:
             - { name: validator.constraint_validator, alias: p4_museum_sundayvaliditydate }  
 
     p4_museum.validator.isclosed:                              
-        class: P4\MuseumBundle\Validator\IsClosedValidator     
-        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
+        class: P4\MuseumBundle\Validator\IsClosedValidator      
         tags:
             - { name: validator.constraint_validator, alias: p4_museum_isclosed } 
 
     p4_museum.validator.holidayticket:                              
         class: P4\MuseumBundle\Validator\HolidayticketValidator     
-        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] 
         tags:
             - { name: validator.constraint_validator, alias: p4_museum_holidayticket } 
 

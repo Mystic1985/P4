@@ -5,7 +5,6 @@ namespace P4\MuseumBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use P4\MuseumBundle\Controller\TicketController;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class TuesdayvaliditydateValidator extends ConstraintValidator
