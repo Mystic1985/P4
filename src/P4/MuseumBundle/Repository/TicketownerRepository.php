@@ -12,16 +12,5 @@ use Doctrine\ORM\QueryBuilder;
  */
 class TicketownerRepository extends EntityRepository
 {
-	public function getTicketowners()
-  	{
-    $qb = $this->createQueryBuilder('t');
 
-    $qb
-    	->where('t.firstname = :firstname')
-    	->setParameter('firstname', 'Arnaud');
-    
-    return $qb->getQuery()
-			  ->getResult();
-
-  	}
 }

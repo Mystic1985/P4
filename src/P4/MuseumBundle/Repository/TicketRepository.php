@@ -10,18 +10,6 @@ namespace P4\MuseumBundle\Repository;
  */
 class TicketRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getTickets()
-  	{
-    $qb = $this->createQueryBuilder('t');
-    // On fait une jointure avec l'entité Category avec pour alias « t »
-    $qb
-      ->innerJoin('t.ticketowner', 'ti')
-      ->addSelect('ti');
-    return $qb
-      ->getQuery()
-      ->getResult()
-      ;
-  }
 
   public function countByValiditydate($validitydate)
   {
@@ -34,27 +22,15 @@ class TicketRepository extends \Doctrine\ORM\EntityRepository
     return $qb->getQuery()->getSingleScalarResult();
   }
 
-  public function getTicketlistByOrder($order)
-  {
-    $qb = $this->createQueryBuilder('t');
-    $qb
-      ->where('t.orders = :order')
-      ->setParameter('order', $order);
-
-    return $qb
-      ->getQuery()
-      ->getResult();
-  }
-
   public function countByOrder($order)
   {
-    $qb = $this->createQueryBuilder('t');
-    $qb
-      ->select('count(t.id)')
-      ->where('t.orders = :orders')
-      ->setParameter('orders', $order);
+      $qb = $this->createQueryBuilder('t');
+      $qb
+        ->select('count(t.id)')
+        ->where('t.orders = :orders')
+        ->setParameter('orders', $order);
 
-  return $qb->getQuery()->getSingleScalarResult();
+    return $qb->getQuery()->getSingleScalarResult();
   }
 
 }

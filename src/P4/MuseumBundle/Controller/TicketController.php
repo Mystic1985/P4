@@ -124,6 +124,7 @@ class TicketController extends Controller
     public function confirmAction(Request $request) // Page de confirmation
     {
         $session = $request->getSession();
+        
         $totalprice = $session->get('totalprice');
         $id = $session->get('orderid');
         $em = $this->getDoctrine()->getManager();

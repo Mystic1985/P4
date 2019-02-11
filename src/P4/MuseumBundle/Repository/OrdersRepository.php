@@ -10,27 +10,15 @@ namespace P4\MuseumBundle\Repository;
  */
 class OrdersRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getNumberofticketsPerDay($orderdate)
-	{
-		$qb = $this->createQueryBuilder('o');
-		$qb
-			->where('o.orderdate = :orderdate')
-			->setParameter('orderdate', $orderdate);
-
-		$results = $qb
-			->getQuery()
-			->getResult();
-		return $results;
-	}  
 
 	public function countOrdersId($order)
   	{
-    $qb = $this->createQueryBuilder('o');
-    $qb
-      ->select('count(o.id)')
-      ->where('o.id = :order')
-      ->setParameter('order', $order);
+	    $qb = $this->createQueryBuilder('o');
+	    $qb
+	      ->select('count(o.id)')
+	      ->where('o.id = :order')
+	      ->setParameter('order', $order);
 
-    return $qb->getQuery()->getSingleScalarResult();
-  }
+	    return $qb->getQuery()->getSingleScalarResult();
+  	}
 }
