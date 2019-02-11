@@ -7,7 +7,7 @@ use P4\MuseumBundle\Validator\SundayvaliditydateValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 /**
- * Class TicketlimitValidatorTest.
+ * Class SundayvaliditydateValidatorTest.
  */
 class SundayvaliditydateValidatorTest extends TestCase
 {
