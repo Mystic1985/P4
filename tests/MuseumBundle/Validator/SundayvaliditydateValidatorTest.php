@@ -28,7 +28,7 @@ class SundayvaliditydateValidatorTest extends TestCase
         $this->sundayValidator->initialize($this->context);
     }
     /**
-     * Test de mails valides.
+     * Test de dates valides.
      */
     public function testValidationOk()
     {

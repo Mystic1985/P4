@@ -32,13 +32,9 @@ class HolidayticketValidatorTest extends TestCase
      */
     public function testDatesValides()
     {
-        try {
         $this->context->expects($this->never())
             ->method('addViolation');
         $this->holidayValidator->validate(\DateTime::createFromFormat('Y-m-d', '2019-01-10'), $this->holidayticket);
-        } catch(\Exception $e) {
-            echo 'test refusé';
-        }
     }
     public function testJoursFeries()
     {
