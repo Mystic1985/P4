@@ -220,7 +220,7 @@ class Ticket
         $time = new \DateTime();
         $time = $time->format("H:i:s");
         //Définition de l'heure limite
-        $limit = new \DateTime("10:00:00");
+        $limit = new \DateTime("14:00:00");
         $limit = $limit->format("H:i:s");
         if($validitydate == $today){
             if($limit < $time && $type == self::FULL_DAY)
