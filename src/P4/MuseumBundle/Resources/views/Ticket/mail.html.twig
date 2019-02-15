@@ -26,7 +26,9 @@
       <div class="row">
         <div class="col-md-12 text-center">
       <h2>Musée du Louvre</h2>
-      <h3>{{ 'mail.subtitle'|trans }} n°{{ orders.code }}</h3>
+      <h3>{{ 'mail.subtitle'|trans }} n°{{ orders.code }}</h3><br />
+
+      <h4>Le {{ orders.orderdate|date('d/m/Y') }}</h4>
 
       <img src="{{ absolute_url(asset('images/louvre.jpg')) }}" class="img-responsive center-block" id="louvre" alt="louvre" /><br /><br />
 
@@ -84,6 +86,7 @@
             <th>{{ 'Prénom'|trans }}</th>
             <th>{{ 'Date de naissance'|trans }}</th>
             <th>{{ 'Pays'|trans }}</th>
+            <th>{{ 'Date'}}</th>
             <th>{{ 'Type de billet'|trans }}</th>
             <th>{{ 'Tarif réduit'|trans }}</th>
             <th>{{ 'Prix'|trans }}</th>
@@ -97,6 +100,7 @@
              <td data-label="Prénom">{{ ticket.ticketowner.firstname }}</td>
              <td data-label="Date de naissance">{{ ticket.ticketowner.birthdate|date('d/m/Y') }}</td>
              <td data-label="Pays">{{ ticket.ticketowner.country | country }}</td>
+             <td data-label="Date">{{ ticket.validitydate|date('d/m/Y') }}</td>
               {% if ticket.type == 'Demi-journée' %}
                     <td data-label="Type de billet">{{ 'ticket.type.halfday'|trans }}<br /></td>
               {% else %}
