@@ -54,7 +54,6 @@ services:
             arguments:
                 - '@mailer'
                 - '@twig'
-                - '@translator'
 
     museum.stripe:
             class: P4\MuseumBundle\Service\StripeService

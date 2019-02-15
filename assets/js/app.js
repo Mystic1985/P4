@@ -29,11 +29,10 @@ require('../css/app.scss');
     //Ajout d'un formulaire TicketType
     function addTicket($container) {
       var template = $container.attr('data-prototype')
-        .replace(/__name__label__/g, 'Billet')
-        .replace(/__name__/g,        index)
-      ;
-
-      // On crée un objet jquery qui contient ce template
+      if(template){
+        var template = template.replace(/__name__/g,        index).replace(/__name__label__/g, 'Billets');
+      
+     // On crée un objet jquery qui contient ce template
       var $prototype = $(template);
 
       // On ajoute au prototype un lien pour pouvoir supprimer le billet
@@ -64,11 +63,12 @@ require('../css/app.scss');
         else {
           justificatif.remove();
         }
+
     });
 
       // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
       index++;
-    }
+    }};
 
     // La fonction qui ajoute un lien de suppression d'un billet
     function addDeleteLink($prototype) {
