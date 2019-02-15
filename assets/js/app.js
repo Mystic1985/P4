@@ -30,7 +30,7 @@ require('../css/app.scss');
     function addTicket($container) {
       var template = $container.attr('data-prototype')
       if(template){
-        var template = template.replace(/__name__/g,        index).replace(/__name__label__/g, 'Billets');
+        var template = template.replace(/__name__/g,        index);
       
      // On crée un objet jquery qui contient ce template
       var $prototype = $(template);
